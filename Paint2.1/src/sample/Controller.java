@@ -1,16 +1,16 @@
 package sample;
 
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import sample.GeomFigures.Line;
 
 
 public class Controller {
+
     private Stage stage = Stage.Cursor;
     private double PrevX;
     private double PrevY;
@@ -18,7 +18,28 @@ public class Controller {
     private KeyCombination redo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 
     @FXML
-    private ListView<FigureTypes> FigureList;
+    private ToggleButton btnLine;
+
+    @FXML
+    private ToggleButton btnTriang;
+
+    @FXML
+    private ToggleButton btnCircle;
+
+    @FXML
+    private ToggleButton btnRect;
+
+    @FXML
+    private ToggleButton btnEllipse;
+
+    @FXML
+    private ToggleButton btnSquare;
+
+  /*  @FXML
+    ToggleButton[] toolsArr = {btnLine, btnTriang, btnCircle, btnRect, btnEllipse, btnSquare};
+
+    @FXML
+    private ToggleGroup buttons = new ToggleGroup(); */
 
     @FXML
     private Canvas myCanvas;
@@ -33,23 +54,31 @@ public class Controller {
     private Slider SliderWidth;
 
     @FXML
-    public void initialize(){
+     void initialize(){
         PenCol.setValue(Color.BLACK);
         FillCol.setValue(Color.WHITE);
-        Slider slider = new Slider(1, 30, 3);
-        FigureList.getItems().addAll(FigureTypes.values());
-
+        SliderWidth.setValue(3);
+        SliderWidth.setMin(1);
+        SliderWidth.setMax(30);
     }
 
     @FXML
-    public void CanvOnPressed(MouseEvent event){
+     void CanvOnPressed(MouseEvent event){
         stage = Stage.Dragging;
+        PrevX = (int) event.getX();
+        PrevY = (int) event.getY();
+        int DELTA_N = 20;
+
+       if (btnLine.isSelected()){
+           new Line(PrevX - DELTA_N, PrevY - DELTA_N, PrevX, PrevY);
+          // FigureBuilder.create(FigureTypes.Line,PrevX, PrevY);
+       }
 
 
     }
 
     @FXML
-    public void CanvOnDragged(MouseEvent event){
+     void CanvOnDragged(MouseEvent event){
         if (stage == Stage.Dragging) {
             double newX = event.getX();
             double newY = event.getY();
@@ -59,7 +88,7 @@ public class Controller {
     }
 
     @FXML
-    public void CanvOnKeyPressed(KeyEvent event){
+    void CanvOnKeyPressed(KeyEvent event){
         if (undo.match(event)) {
 
         }
