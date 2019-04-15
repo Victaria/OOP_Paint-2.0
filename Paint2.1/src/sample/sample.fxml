@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -18,7 +19,7 @@
             <Label layoutX="20.0" layoutY="10.0" text="Pen Color :" />
                 <ColorPicker fx:id="FillCol" editable="true" layoutX="27.0" layoutY="97.0" prefHeight="31.0" prefWidth="127.0" />
                 <ColorPicker fx:id="PenCol" editable="true" layoutX="27.0" layoutY="37.0" prefHeight="31.0" prefWidth="127.0" />
-                <Slider fx:id="SliderWidth" layoutX="32.0" layoutY="185.0" majorTickUnit="15.0" max="30.0" prefHeight="31.0" prefWidth="127.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                <Slider fx:id="SliderWidth" layoutX="25.0" layoutY="185.0" majorTickUnit="15.0" max="30.0" prefHeight="44.0" prefWidth="134.0" showTickLabels="true" showTickMarks="true" value="3.0" />
                 <AnchorPane layoutX="29.0" layoutY="261.0" prefHeight="539.0" prefWidth="151.0">
                     <children>
                         <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
@@ -30,8 +31,11 @@
                         <ToggleButton fx:id="btnRect" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
                         <ToggleButton fx:id="btnEllipse" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />
                         <ToggleButton fx:id="btnSquare" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
+                  <Button fx:id="btnRedo" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="275.0" />
+                  <Button fx:id="btnUndo" layoutX="19.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="320.0" />
                     </children>
                 </AnchorPane>
+            <Label fx:id="lineWidth" layoutX="20.0" layoutY="160.0" text="Width :" />
             </children></Pane>
 
     </children>
