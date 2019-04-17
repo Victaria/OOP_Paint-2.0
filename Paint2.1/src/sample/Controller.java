@@ -71,6 +71,7 @@ public class Controller {
            FigureAbstract figure = FigureBuilder.create(figureType, PrevX, PrevY);
            figure.setFillCol(FillCol.getValue().toString());
            figure.setPenCol(PenCol.getValue().toString());
+           figure.setSliderWidth(SliderWidth.getValue());
 
 
            FugureControl.add(figure);

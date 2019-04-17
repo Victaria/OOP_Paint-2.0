@@ -14,7 +14,7 @@ public class Line extends FigureAbstract {
     public void draw(GraphicsContext context) {
         context.setFill(Color.valueOf(getFillCol()));
         context.setStroke(Color.valueOf(getPenCol()));
-        context.setLineWidth(5);
+        context.setLineWidth(getSliderWidth());
 
         context.strokeLine(getX1(), getY1(), getX2(), getY2());
     }

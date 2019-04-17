@@ -25,10 +25,10 @@ public class FugureControl {
         figures.add(figure);
     }
 
-    public static void resizeLast(double deltaX, double deltaY)
+    public static void resizeLast(double dX, double dY)
     {
         FigureAbstract figure = figures.get(figures.size() - 1);
-        figure.resize(deltaX, deltaY);
+        figure.resize(dX, dY);
     }
 
     public void removeLast()
