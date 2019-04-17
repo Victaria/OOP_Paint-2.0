@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
 import javafx.fxml.FXML;
@@ -35,12 +36,6 @@ public class Controller {
     @FXML
     private ToggleButton btnSquare;
 
-  /*  @FXML
-    ToggleButton[] toolsArr = {btnLine, btnTriang, btnCircle, btnRect, btnEllipse, btnSquare};
-
-    @FXML
-    private ToggleGroup buttons = new ToggleGroup(); */
-
     @FXML
     private Canvas myCanvas;
 
@@ -54,12 +49,14 @@ public class Controller {
     private Slider SliderWidth;
 
     @FXML
+    private GraphicsContext graphicsContext;
+
+    @FXML
      void initialize(){
         PenCol.setValue(Color.BLACK);
         FillCol.setValue(Color.WHITE);
-        SliderWidth.setValue(3);
-        SliderWidth.setMin(1);
-        SliderWidth.setMax(30);
+        graphicsContext = myCanvas.getGraphicsContext2D();
+        graphicsContext.setLineWidth(3);
     }
 
     @FXML
@@ -67,11 +64,18 @@ public class Controller {
         stage = Stage.Dragging;
         PrevX = (int) event.getX();
         PrevY = (int) event.getY();
-        int DELTA_N = 20;
 
        if (btnLine.isSelected()){
-           new Line(PrevX - DELTA_N, PrevY - DELTA_N, PrevX, PrevY);
-          // FigureBuilder.create(FigureTypes.Line,PrevX, PrevY);
+            graphicsContext.setStroke(PenCol.getValue());
+           FigureTypes figureType = FigureTypes.Line;
+           FigureAbstract figure = FigureBuilder.create(figureType, PrevX, PrevY);
+           figure.setFillCol(FillCol.getValue().toString());
+           figure.setPenCol(PenCol.getValue().toString());
+
+
+           FugureControl.add(figure);
+           FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+       //  FigureBuilder.create(FigureTypes.Line, PrevX, PrevY);
        }
 
 
@@ -84,6 +88,15 @@ public class Controller {
             double newY = event.getY();
             double dX = newX - PrevX;
             double dY = newY - PrevY;
+
+            if (btnLine.isSelected()){
+                Line line = new Line(PrevX,PrevY,newX,newY);
+                line.draw(graphicsContext);
+                FugureControl.resizeLast(dX, dY);
+                FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+                PrevX = newX;
+                PrevY = newY;
+            }
         }
     }
 

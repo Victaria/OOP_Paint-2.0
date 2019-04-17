@@ -28,6 +28,8 @@ public abstract class FigureAbstract {
 
     public abstract void draw(GraphicsContext context);
 
+   // public abstract FigureAbstract settingStart(double X, double Y);
+
     public String getFillCol() {
         return FillCol;
     }
@@ -74,5 +76,10 @@ public abstract class FigureAbstract {
 
     public double getHight(){
         return  y2 - y1;
+    }
+
+    public void resize(double dX, double dY){
+        x2 += dX;
+        y2 += dY;
     }
 }

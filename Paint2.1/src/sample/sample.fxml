@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="MainPane" maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <Canvas fx:id="myCanvas" height="800.0" onMousePressed="#CanvOnPressed" width="1020.0" />
+        <Canvas fx:id="myCanvas" height="800.0" onMouseDragged="#CanvOnDragged" onMousePressed="#CanvOnPressed" width="1020.0" />
         <Pane pickOnBounds="false" prefHeight="800.0" prefWidth="180.0" style="-fx-background-color: #4a919e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1020.0" AnchorPane.rightAnchor="1200.0" AnchorPane.topAnchor="0.0">
             <children>
             <Label layoutX="20.0" layoutY="75.0" text="Fill Color :" />
