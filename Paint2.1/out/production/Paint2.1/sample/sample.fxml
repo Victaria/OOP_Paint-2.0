@@ -23,7 +23,7 @@
                 <Slider fx:id="SliderWidth" layoutX="25.0" layoutY="185.0" majorTickUnit="15.0" max="30.0" min="1.0" prefHeight="44.0" prefWidth="134.0" showTickLabels="true" showTickMarks="true" value="3.0" />
                 <AnchorPane layoutX="29.0" layoutY="261.0" prefHeight="539.0" prefWidth="151.0">
                     <children>
-                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
+                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" selected="true" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
                             <toggleGroup>
                                 <ToggleGroup fx:id="buttons" />
                             </toggleGroup></ToggleButton>

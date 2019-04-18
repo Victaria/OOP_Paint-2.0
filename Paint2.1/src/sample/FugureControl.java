@@ -30,7 +30,7 @@ public class FugureControl {
         figure.resize(dX, dY);
     }
 
-    public void removeLast()
+    public void undoLast()
     {
         if (!undoHistory.isEmpty()) {
             redoHistory.push(undoHistory.pop());

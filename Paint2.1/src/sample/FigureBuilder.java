@@ -7,7 +7,7 @@ public class FigureBuilder {
     public static FigureAbstract create(FigureTypes figureType, double X, double Y){
        switch (figureType){
            case Line:
-                    return new Line(X, Y, X, Y);
+                return new Line(X, Y, X, Y);
             case Rectangle:
                 return new Rectangle(X, Y, X, Y);
             case Circle:

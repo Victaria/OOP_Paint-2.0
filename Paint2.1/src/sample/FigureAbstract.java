@@ -8,48 +8,43 @@ public abstract class FigureAbstract {
     private double x2;
     private double y2;
 
-    private String FillCol;
-    private String PenCol;
-    private double SliderWidth;
+    private String fillCol;
+    private String penCol;
+    private double slidWidth;
 
     public FigureAbstract(double x1, double y1, double x2, double y2){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        PenCol = "#000000";
-        FillCol = "#ffffff";
-    }
-
-    public void SecPoint(double dX, double dY){
-        x2 += dX;
-        y2 += dY;
+        penCol = "#000000";
+        fillCol = "#ffffff";
     }
 
     public abstract void draw(GraphicsContext context);
 
     public String getFillCol() {
-        return FillCol;
+        return fillCol;
     }
 
     public void setFillCol(String fillCol) {
-        this.FillCol = fillCol;
+        this.fillCol = fillCol;
     }
 
     public String getPenCol() {
-        return PenCol;
+        return penCol;
     }
 
     public void setPenCol(String penCol) {
-        this.PenCol = penCol;
+        this.penCol = penCol;
     }
 
     public double getSliderWidth(){
-        return SliderWidth;
+        return slidWidth;
     }
 
     public void setSliderWidth(double sliderWidth) {
-        SliderWidth = sliderWidth;
+        slidWidth = sliderWidth;
     }
 
     public double getX1() {

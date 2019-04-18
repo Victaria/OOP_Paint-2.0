@@ -13,13 +13,15 @@ public class Circle extends FigureAbstract {
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(Color.valueOf(getFillCol()));
-        context.setStroke(Color.valueOf(getPenCol()));
         context.setLineWidth(getSliderWidth());
+        context.setStroke(Color.valueOf(getPenCol()));
 
         double min;
         double w = getWidth();
         double h = getHight();
-        if (w < h){ min = w;} else min = h;
+        if (w < h){
+            min = w;
+        } else min = h;
         context.fillOval(getX1(), getY1(), min, min);
         context.strokeOval(getX1(), getY1(), min, min);
     }
