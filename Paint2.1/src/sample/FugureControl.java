@@ -10,12 +10,12 @@ public class FugureControl {
     private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
     private Stack<FigureAbstract> redoHistory = new Stack<FigureAbstract>();
 
-    private static List<FigureAbstract> figures = new ArrayList<FigureAbstract>();
+  //  private static List<FigureAbstract> figures = new ArrayList<FigureAbstract>();
 
     public static void redraw(GraphicsContext context, double w, double h)
     {
         context.clearRect(0, 0, w, h);
-        for (FigureAbstract figure : figures) {
+        for (FigureAbstract figure : undoHistory) {
             figure.draw(context);
         }
     }
@@ -27,7 +27,7 @@ public class FugureControl {
 
     public static void resizeLast(double dX, double dY)
     {
-        FigureAbstract figure = figures.get(figures.size() - 1);
+        FigureAbstract figure = undoHistory.get(undoHistory.size() - 1);
         figure.resize(dX, dY);
     }
 
