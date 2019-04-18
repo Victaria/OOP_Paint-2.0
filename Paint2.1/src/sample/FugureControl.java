@@ -39,5 +39,11 @@ public class FugureControl {
         }
     }
 
+    public void redoLast(){
+        if (!redoHistory.isEmpty()){
+            undoHistory.push(redoHistory.pop());
+        }
+    }
+
 
 }

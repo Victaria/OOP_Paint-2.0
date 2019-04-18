@@ -130,7 +130,8 @@ public class Controller {
            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         }
         if (redo.match(event)){
-
+            figureControle.redoLast();
+            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         }
     }
 
