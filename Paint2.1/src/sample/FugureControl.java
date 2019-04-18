@@ -10,7 +10,6 @@ public class FugureControl {
     private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
     private Stack<FigureAbstract> redoHistory = new Stack<FigureAbstract>();
 
-  //  private static List<FigureAbstract> figures = new ArrayList<FigureAbstract>();
 
     public static void redraw(GraphicsContext context, double w, double h)
     {
@@ -34,7 +33,6 @@ public class FugureControl {
     public void removeLast()
     {
         if (!undoHistory.isEmpty()) {
-           // undoHistory.pop();
             redoHistory.push(undoHistory.pop());
         }
     }
