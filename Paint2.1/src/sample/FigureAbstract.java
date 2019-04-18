@@ -28,8 +28,6 @@ public abstract class FigureAbstract {
 
     public abstract void draw(GraphicsContext context);
 
-   // public abstract FigureAbstract settingStart(double X, double Y);
-
     public String getFillCol() {
         return FillCol;
     }

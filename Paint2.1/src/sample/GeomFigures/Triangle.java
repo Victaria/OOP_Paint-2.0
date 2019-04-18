@@ -1,4 +1,27 @@
 package sample.GeomFigures;
 
-public class Triangle {
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import sample.FigureAbstract;
+
+public class Triangle extends FigureAbstract {
+
+    public Triangle(double x1, double y1, double x2, double y2) {
+        super(x1, y1, x2, y2);
+    }
+
+    @Override
+    public void draw(GraphicsContext context) {
+        context.setFill(Color.valueOf(getFillCol()));
+        context.setStroke(Color.valueOf(getPenCol()));
+        context.setLineWidth(getSliderWidth());
+
+        double x1 = getX1(), x2 = getX2(), y1 = getY1(), y2 = getY2();
+
+        double xpoint[] = new double[] {x1, (x1 + x2) / 2, x2};
+        double ypoint[] = new double[] {y2, y1, y2};
+
+        context.fillPolygon(xpoint, ypoint, xpoint.length);
+        context.strokePolygon(xpoint, ypoint, xpoint.length);
+    }
 }

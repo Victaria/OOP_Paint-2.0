@@ -7,8 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
-import sample.GeomFigures.Circle;
-import sample.GeomFigures.Line;
+import sample.GeomFigures.*;
 
 
 public class Controller {
@@ -105,13 +104,16 @@ public class Controller {
                 Circle circle = new Circle(PrevX, PrevY, newX, newY);
                 circle.draw(graphicsContext);
             } else if (btnEllipse.isSelected()){
-
+                Ellipse ellipse = new Ellipse(PrevX, PrevY, newX, newY);
+                ellipse.draw(graphicsContext);
             } else if (btnRect.isSelected()){
-
+                Rectangle rectangle = new Rectangle(PrevX, PrevY, newX, newY);
             } else if (btnSquare.isSelected()){
-
+                Square square = new Square(PrevX, PrevY, newX, newY);
+                square.draw(graphicsContext);
             } else if (btnTriang.isSelected()){
-
+                Triangle triangle = new Triangle(PrevX, PrevY, newX, newY);
+                triangle.draw(graphicsContext);
             }
             FugureControl.resizeLast(dX, dY);
             FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());

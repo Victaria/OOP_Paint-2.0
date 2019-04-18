@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class FugureControl {
-    private Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
+    private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
     private Stack<FigureAbstract> redoHistory = new Stack<FigureAbstract>();
 
     private static List<FigureAbstract> figures = new ArrayList<FigureAbstract>();
@@ -22,7 +22,7 @@ public class FugureControl {
 
     public static void add(FigureAbstract figure)
     {
-        figures.add(figure);
+        undoHistory.push(figure);
     }
 
     public static void resizeLast(double dX, double dY)
@@ -33,8 +33,9 @@ public class FugureControl {
 
     public void removeLast()
     {
-        if (!figures.isEmpty()) {
-            figures.remove(figures.size() - 1);
+        if (!undoHistory.isEmpty()) {
+           // undoHistory.pop();
+            redoHistory.push(undoHistory.pop());
         }
     }
 
