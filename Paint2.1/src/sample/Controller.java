@@ -13,7 +13,7 @@ import sample.GeomFigures.*;
 public class Controller {
 
     private Stage stage = Stage.Cursor;
-  //  private FugureControl figureControle = new FugureControl();
+    private FugureControl figureControle = new FugureControl();
     private double PrevX;
     private double PrevY;
     private KeyCombination undo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
@@ -126,7 +126,8 @@ public class Controller {
     @FXML
     void CanvOnKeyPressed(KeyEvent event){
         if (undo.match(event)) {
-
+           figureControle.removeLast();
+           FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         }
         if (redo.match(event)){
 
