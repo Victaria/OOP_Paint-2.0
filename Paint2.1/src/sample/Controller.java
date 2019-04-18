@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import sample.GeomFigures.Circle;
 import sample.GeomFigures.Line;
 
 
@@ -57,29 +58,36 @@ public class Controller {
         FillCol.setValue(Color.WHITE);
         graphicsContext = myCanvas.getGraphicsContext2D();
         graphicsContext.setLineWidth(3);
+        btnLine.isSelected();
     }
 
     @FXML
      void CanvOnPressed(MouseEvent event){
+        FigureTypes figureType = null;
         stage = Stage.Dragging;
         PrevX = (int) event.getX();
         PrevY = (int) event.getY();
 
        if (btnLine.isSelected()){
-            graphicsContext.setStroke(PenCol.getValue());
-           FigureTypes figureType = FigureTypes.Line;
+           figureType = FigureTypes.Line;
+       } else if (btnCircle.isSelected()){
+            figureType = FigureTypes.Circle;
+       } else if (btnEllipse.isSelected()){
+            figureType = FigureTypes.Ellipse;
+       } else if (btnRect.isSelected()){
+            figureType = FigureTypes.Rectangle;
+       } else if (btnSquare.isSelected()){
+            figureType = FigureTypes.Square;
+       } else if (btnTriang.isSelected()){
+            figureType = FigureTypes.Triangle;
+       }
            FigureAbstract figure = FigureBuilder.create(figureType, PrevX, PrevY);
            figure.setFillCol(FillCol.getValue().toString());
            figure.setPenCol(PenCol.getValue().toString());
            figure.setSliderWidth(SliderWidth.getValue());
 
-
            FugureControl.add(figure);
            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
-       //  FigureBuilder.create(FigureTypes.Line, PrevX, PrevY);
-       }
-
-
     }
 
     @FXML
@@ -93,11 +101,22 @@ public class Controller {
             if (btnLine.isSelected()){
                 Line line = new Line(PrevX,PrevY,newX,newY);
                 line.draw(graphicsContext);
-                FugureControl.resizeLast(dX, dY);
-                FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
-                PrevX = newX;
-                PrevY = newY;
+            } else if (btnCircle.isSelected()){
+                Circle circle = new Circle(PrevX, PrevY, newX, newY);
+                circle.draw(graphicsContext);
+            } else if (btnEllipse.isSelected()){
+
+            } else if (btnRect.isSelected()){
+
+            } else if (btnSquare.isSelected()){
+
+            } else if (btnTriang.isSelected()){
+
             }
+            FugureControl.resizeLast(dX, dY);
+            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+            PrevX = newX;
+            PrevY = newY;
         }
     }
 
