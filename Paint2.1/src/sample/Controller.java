@@ -59,7 +59,7 @@ public class Controller {
 
     @FXML
      void CanvOnPressed(MouseEvent event){
-        FigureTypes figureType = null;
+        FigureTypes figureType = FigureTypes.Line;
         firstX =  event.getX();
         firstY =  event.getY();
 
@@ -82,7 +82,7 @@ public class Controller {
            figure.setSliderWidth(SliderWidth.getValue());
 
            FugureControl.add(figure);
-           FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+         //  FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
     }
 
     @FXML
