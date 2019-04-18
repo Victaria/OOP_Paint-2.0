@@ -135,4 +135,16 @@ public class Controller {
         }
     }
 
+    @FXML
+    void RedoSelected(){
+        figureControle.redoLast();
+        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+    }
+
+    @FXML
+    void UndoSelected(){
+        figureControle.removeLast();
+        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+    }
+
 }
