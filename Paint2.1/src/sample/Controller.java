@@ -80,9 +80,7 @@ public class Controller {
            figure.setFillCol(FillCol.getValue().toString());
            figure.setPenCol(PenCol.getValue().toString());
            figure.setSliderWidth(SliderWidth.getValue());
-
            FugureControl.add(figure);
-         //  FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
     }
 
     @FXML
@@ -92,7 +90,7 @@ public class Controller {
             double dX = newX - firstX;
             double dY = newY - firstY;
 
-            FugureControl.resizeLast(dX, dY);
+            FugureControl.resize(dX, dY);
             FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
             firstX = newX;
             firstY = newY;

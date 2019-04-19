@@ -24,7 +24,7 @@ public class FugureControl {
         undoHistory.push(figure);
     }
 
-    public static void resizeLast(double dX, double dY)
+    public static void resize(double dX, double dY)
     {
         FigureAbstract figure = undoHistory.get(undoHistory.size() - 1);
         figure.resize(dX, dY);
