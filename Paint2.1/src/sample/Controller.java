@@ -48,6 +48,11 @@ public class Controller {
     @FXML
     private Slider SliderWidth;
 
+    @FXML
+    private Button Save;
+
+    @FXML
+    private Button Open;
 
     @FXML
      void initialize(){
