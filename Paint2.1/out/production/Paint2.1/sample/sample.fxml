@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="MainPane" maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" onKeyPressed="#CanvOnKeyPressed" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <Canvas fx:id="myCanvas" height="800.0" onMouseDragged="#CanvOnDragged" onMousePressed="#CanvOnPressed" width="1020.0" />
+        <Canvas fx:id="myCanvas" height="800.0" onMouseDragged="#CanvOnDragged" onMousePressed="#CanvOnPressed" width="1031.0" />
         <Pane pickOnBounds="false" prefHeight="800.0" prefWidth="180.0" style="-fx-background-color: #4a919e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1020.0" AnchorPane.rightAnchor="1200.0" AnchorPane.topAnchor="0.0">
             <children>
             <Label layoutX="20.0" layoutY="75.0" text="Fill Color :" />
@@ -34,11 +34,14 @@
                         <ToggleButton fx:id="btnSquare" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
                   <Button fx:id="btnRedo" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="275.0" />
                   <Button fx:id="btnUndo" layoutX="19.0" layoutY="320.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="320.0" />
+                  <Button fx:id="btnSave" layoutX="18.0" layoutY="380.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Save" />
+                  <Button fx:id="btnOpen" layoutX="20.0" layoutY="424.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Open" />
+                  <Separator layoutX="-19.0" layoutY="258.0" prefHeight="3.0" prefWidth="168.0" />
                     </children>
                 </AnchorPane>
             <Label fx:id="lineWidth" layoutX="20.0" layoutY="160.0" text="Width :" />
             </children></Pane>
-      <Separator layoutX="1026.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1020.0" AnchorPane.topAnchor="0.0" />
+      <Separator layoutX="1031.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1031.0" AnchorPane.topAnchor="0.0" />
 
     </children>
 </AnchorPane>
