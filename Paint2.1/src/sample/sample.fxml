@@ -31,11 +31,11 @@
                         <ToggleButton fx:id="btnRect" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
                         <ToggleButton fx:id="btnEllipse" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />
                         <ToggleButton fx:id="btnSquare" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
-                  <Button fx:id="btnRedo" layoutY="396.0" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="396.0" />
-                  <Button fx:id="btnUndo" layoutX="19.0" layoutY="438.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="438.0" />
-                  <Button fx:id="btnSave" layoutX="18.0" layoutY="498.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Save" />
-                  <Button fx:id="btnOpen" layoutX="20.0" layoutY="538.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Open" />
-                  <Separator layoutX="-19.0" layoutY="369.0" prefHeight="13.0" prefWidth="168.0" />
+                  <Button fx:id="btnRedo" layoutX="20.0" layoutY="323.0" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="323.0" />
+                  <Button fx:id="btnUndo" layoutX="20.0" layoutY="365.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="365.0" />
+                  <Button fx:id="btnSave" layoutX="20.0" layoutY="423.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Save" />
+                  <Button fx:id="btnOpen" layoutX="20.0" layoutY="469.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Open" />
+                  <Separator layoutX="-19.0" layoutY="300.0" prefHeight="13.0" prefWidth="168.0" />
                   <ToggleButton fx:id="btnNone" layoutX="20.0" layoutY="253.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="None" toggleGroup="$buttons" />
                     </children>
                 </AnchorPane>

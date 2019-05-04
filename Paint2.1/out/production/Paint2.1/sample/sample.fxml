@@ -20,8 +20,7 @@
             <Label layoutX="20.0" layoutY="10.0" text="Pen Color :" />
                 <ColorPicker fx:id="FillCol" editable="true" layoutX="27.0" layoutY="97.0" prefHeight="31.0" prefWidth="127.0" />
                 <ColorPicker fx:id="PenCol" editable="true" layoutX="27.0" layoutY="37.0" prefHeight="31.0" prefWidth="127.0" />
-                <Slider fx:id="SliderWidth" layoutX="25.0" layoutY="185.0" majorTickUnit="15.0" max="30.0" min="1.0" prefHeight="44.0" prefWidth="134.0" showTickLabels="true" showTickMarks="true" value="3.0" />
-                <AnchorPane layoutX="29.0" layoutY="261.0" prefHeight="539.0" prefWidth="151.0">
+                <AnchorPane layoutX="29.0" layoutY="215.0" prefHeight="585.0" prefWidth="141.0">
                     <children>
                         <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" selected="true" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
                             <toggleGroup>
@@ -32,16 +31,18 @@
                         <ToggleButton fx:id="btnRect" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
                         <ToggleButton fx:id="btnEllipse" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />
                         <ToggleButton fx:id="btnSquare" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
-                  <Button fx:id="btnRedo" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="275.0" />
-                  <Button fx:id="btnUndo" layoutX="19.0" layoutY="320.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="320.0" />
-                  <Button fx:id="btnSave" layoutX="18.0" layoutY="380.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Save" />
-                  <Button fx:id="btnOpen" layoutX="20.0" layoutY="424.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Open" />
-                  <Separator layoutX="-19.0" layoutY="258.0" prefHeight="3.0" prefWidth="168.0" />
+                  <Button fx:id="btnRedo" layoutX="20.0" layoutY="323.0" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="323.0" />
+                  <Button fx:id="btnUndo" layoutX="20.0" layoutY="365.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="365.0" />
+                  <Button fx:id="btnSave" layoutX="20.0" layoutY="423.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Save" />
+                  <Button fx:id="btnOpen" layoutX="20.0" layoutY="469.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Open" />
+                  <Separator layoutX="-19.0" layoutY="300.0" prefHeight="13.0" prefWidth="168.0" />
+                  <ToggleButton fx:id="btnNone" layoutX="20.0" layoutY="253.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="None" toggleGroup="$buttons" />
                     </children>
                 </AnchorPane>
-            <Label fx:id="lineWidth" layoutX="20.0" layoutY="160.0" text="Width :" />
             </children></Pane>
       <Separator layoutX="1031.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1031.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="lineWidth" layoutX="1041.0" layoutY="143.0" text="Width :" />
+          <Slider fx:id="SliderWidth" layoutX="1041.0" layoutY="164.0" majorTickUnit="15.0" max="30.0" min="1.0" prefHeight="44.0" prefWidth="134.0" showTickLabels="true" showTickMarks="true" value="3.0" />
 
     </children>
 </AnchorPane>

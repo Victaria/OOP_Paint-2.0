@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import sample.Enums.FigureState;
+import sample.Enums.FigureTypes;
 
 
 public class Controller {
@@ -17,6 +19,7 @@ public class Controller {
     private KeyCombination undo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
     private KeyCombination redo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
     private GraphicsContext graphicsContext;
+    private FigureState state;
 
     @FXML
     private ToggleButton btnLine;
@@ -49,10 +52,13 @@ public class Controller {
     private Slider SliderWidth;
 
     @FXML
-    private Button Save;
+    private Button btnSave;
 
     @FXML
-    private Button Open;
+    private Button btnOpen;
+
+    @FXML
+    private ToggleButton btnNone;
 
     @FXML
      void initialize(){
@@ -64,32 +70,44 @@ public class Controller {
 
     @FXML
      void CanvOnPressed(MouseEvent event){
-        FigureTypes figureType = FigureTypes.Line;
-        firstX =  event.getX();
-        firstY =  event.getY();
 
-       if (btnLine.isSelected()){
-           figureType = FigureTypes.Line;
-       } else if (btnCircle.isSelected()){
-            figureType = FigureTypes.Circle;
-       } else if (btnEllipse.isSelected()){
-            figureType = FigureTypes.Ellipse;
-       } else if (btnRect.isSelected()){
-            figureType = FigureTypes.Rectangle;
-       } else if (btnSquare.isSelected()){
-            figureType = FigureTypes.Square;
-       } else if (btnTriang.isSelected()){
-            figureType = FigureTypes.Triangle;
-       }
-           FigureAbstract figure = FigureBuilder.create(figureType, firstX, firstY);
-           figure.setFillCol(FillCol.getValue().toString());
-           figure.setPenCol(PenCol.getValue().toString());
-           figure.setSliderWidth(SliderWidth.getValue());
-           FugureControl.add(figure);
+        if (btnNone.isSelected()) {
+            state = FigureState.SelectFigure;
+        }
+        else {
+            state = FigureState.DrawFigure;
+            FigureTypes figureType = FigureTypes.Line;
+            firstX =  event.getX();
+            firstY =  event.getY();
+
+            if (btnLine.isSelected()){
+                figureType = FigureTypes.Line;
+            } else if (btnCircle.isSelected()){
+                figureType = FigureTypes.Circle;
+            } else if (btnEllipse.isSelected()){
+                figureType = FigureTypes.Ellipse;
+            } else if (btnRect.isSelected()){
+                figureType = FigureTypes.Rectangle;
+            } else if (btnSquare.isSelected()){
+                figureType = FigureTypes.Square;
+            } else if (btnTriang.isSelected()){
+                figureType = FigureTypes.Triangle;
+            }
+            FigureAbstract figure = FigureBuilder.create(figureType, firstX, firstY);
+            figure.setFillCol(FillCol.getValue().toString());
+            figure.setPenCol(PenCol.getValue().toString());
+            figure.setSliderWidth(SliderWidth.getValue());
+            FugureControl.add(figure);
+        }
+
     }
 
     @FXML
      void CanvOnDragged(MouseEvent event){
+        if (btnNone.isSelected()){
+
+        }
+        else {
             double newX = event.getX();
             double newY = event.getY();
             double dX = newX - firstX;
@@ -99,6 +117,8 @@ public class Controller {
             FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
             firstX = newX;
             firstY = newY;
+            figureControle.clearRedo();
+        }
     }
 
     @FXML

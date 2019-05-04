@@ -1,5 +1,6 @@
 package sample;
 
+import sample.Enums.FigureTypes;
 import sample.GeomFigures.*;
 
 public class FigureBuilder {

@@ -42,6 +42,11 @@ public class FugureControl {
             undoHistory.push(redoHistory.pop());
         }
     }
-
+ 
+    public void clearRedo(){
+        while (!redoHistory.isEmpty()){
+            redoHistory.pop();
+        }
+    }
 
 }
