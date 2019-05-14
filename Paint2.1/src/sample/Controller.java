@@ -9,6 +9,7 @@ import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import sample.Enums.FigureState;
 import sample.Enums.FigureTypes;
+import sample.Factory.ShapeFactory;
 
 
 public class Controller {
@@ -75,6 +76,8 @@ public class Controller {
             state = FigureState.SelectFigure;
         }
         else {
+            ShapeFactory shapeFactory = new ShapeFactory();
+            
             state = FigureState.DrawFigure;
             FigureTypes figureType = FigureTypes.Line;
             firstX =  event.getX();
@@ -93,10 +96,12 @@ public class Controller {
             } else if (btnTriang.isSelected()){
                 figureType = FigureTypes.Triangle;
             }
-            FigureAbstract figure = FigureBuilder.create(figureType, firstX, firstY);
+
+            FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
             figure.setFillCol(FillCol.getValue().toString());
             figure.setPenCol(PenCol.getValue().toString());
             figure.setSliderWidth(SliderWidth.getValue());
+
             FugureControl.add(figure);
         }
 
