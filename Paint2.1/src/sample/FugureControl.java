@@ -49,4 +49,16 @@ public class FugureControl {
         }
     }
 
+    public static Stack<FigureAbstract> getUndoHistory() {
+        return undoHistory;
+    }
+
+    public int getUndoCount(){
+        return undoHistory.size();
+    }
+
+    public Stack<FigureAbstract> copyStack(){
+        Stack<FigureAbstract>copied = (Stack<FigureAbstract>) undoHistory.clone();
+        return copied;
+    }
 }

@@ -11,6 +11,8 @@ import sample.Enums.FigureState;
 import sample.Enums.FigureTypes;
 import sample.Factory.ShapeFactory;
 
+import java.util.Stack;
+
 
 public class Controller {
 
@@ -21,6 +23,7 @@ public class Controller {
     private KeyCombination redo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
     private GraphicsContext graphicsContext;
     private FigureState state;
+    private FigureAbstract figure;
 
     @FXML
     private ToggleButton btnLine;
@@ -74,6 +77,27 @@ public class Controller {
 
         if (btnNone.isSelected()) {
             state = FigureState.SelectFigure;
+            firstX =  event.getX();
+            firstY =  event.getY();
+            FigureAbstract passed;
+            int count = figureControle.getUndoCount();
+            Stack<FigureAbstract> copied = figureControle.copyStack();
+            while (count > 0){
+                passed = copied.pop();
+                if ((passed.getX1()<= firstX)&& (passed.getY1()<= firstY)&& (passed.getX2()>= firstX) && (passed.getY2()>= firstY)){
+                    //ф-я для изменений
+                    count = 0;
+                    System.out.println(passed);
+                }
+                count--;
+            }
+           /* Stack<FigureAbstract> selectedFigures = figureControle.getUndoHistory();
+            for (figure : selectedFigures){
+                if ((figure.getX1()<= firstX)&&(figure.getY1()<= firstY)&&(figure.getX2()>= firstX)&&(figure.getY2()>= firstY)){
+                    FigureAbstract passed = figure;
+
+            }
+            }*/
         }
         else {
             ShapeFactory shapeFactory = new ShapeFactory();
