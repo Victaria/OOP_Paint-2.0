@@ -24,6 +24,7 @@ public class Controller {
     private GraphicsContext graphicsContext;
     private FigureState state;
     private FigureAbstract figure;
+    private FigureAbstract passed;
 
     @FXML
     private ToggleButton btnLine;
@@ -74,23 +75,38 @@ public class Controller {
 
     @FXML
      void CanvOnPressed(MouseEvent event){
+        firstX =  event.getX();
+        firstY =  event.getY();
 
         if (btnNone.isSelected()) {
             state = FigureState.SelectFigure;
-            firstX =  event.getX();
-            firstY =  event.getY();
-            FigureAbstract passed;
             int count = figureControle.getUndoCount();
+            Stack<FigureAbstract> redo = new Stack<FigureAbstract>();
+
             Stack<FigureAbstract> copied = figureControle.copyStack();
             while (count > 0){
                 passed = copied.pop();
+                redo.push(passed);
+
                 if ((passed.getX1()<= firstX)&& (passed.getY1()<= firstY)&& (passed.getX2()>= firstX) && (passed.getY2()>= firstY)){
                     //ф-я для изменений
+                    passed.setPenCol(PenCol.getValue().toString());
+                    passed.setFillCol(FillCol.getValue().toString());
+                    passed.setSliderWidth(SliderWidth.getValue());
+
                     count = 0;
                     System.out.println(passed);
+                    redo.pop();
+                    while (!redo.isEmpty()){
+                        copied.push(redo.pop());
+                    }
+                    copied.push(passed);
                 }
                 count--;
             }
+            FugureControl.add(passed);
+
+
            /* Stack<FigureAbstract> selectedFigures = figureControle.getUndoHistory();
             for (figure : selectedFigures){
                 if ((figure.getX1()<= firstX)&&(figure.getY1()<= firstY)&&(figure.getX2()>= firstX)&&(figure.getY2()>= firstY)){
@@ -104,8 +120,6 @@ public class Controller {
             
             state = FigureState.DrawFigure;
             FigureTypes figureType = FigureTypes.Line;
-            firstX =  event.getX();
-            firstY =  event.getY();
 
             if (btnLine.isSelected()){
                 figureType = FigureTypes.Line;
@@ -133,21 +147,25 @@ public class Controller {
 
     @FXML
      void CanvOnDragged(MouseEvent event){
-        if (btnNone.isSelected()){
+        double newX = event.getX();
+        double newY = event.getY();
+        double dX = newX - firstX;
+        double dY = newY - firstY;
 
+        if (btnNone.isSelected()){
+            if (state == FigureState.SelectFigure){
+                FugureControl.resize(dX, dY);
+            }
         }
         else {
-            double newX = event.getX();
-            double newY = event.getY();
-            double dX = newX - firstX;
-            double dY = newY - firstY;
 
             FugureControl.resize(dX, dY);
-            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
-            firstX = newX;
-            firstY = newY;
-            figureControle.clearRedo();
         }
+
+        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        firstX = newX;
+        firstY = newY;
+        figureControle.clearRedo();
     }
 
     @FXML

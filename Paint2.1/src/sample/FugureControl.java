@@ -61,4 +61,14 @@ public class FugureControl {
         Stack<FigureAbstract>copied = (Stack<FigureAbstract>) undoHistory.clone();
         return copied;
     }
+
+    public void changeUndoStack(Stack<FigureAbstract>copied){
+        while (!undoHistory.isEmpty()){
+            undoHistory.pop();
+        }
+        while (!copied.isEmpty()){
+            undoHistory.push(copied.pop());
+        }
+
+    }
 }
