@@ -100,20 +100,13 @@ public class Controller {
                     while (!redo.isEmpty()){
                         copied.push(redo.pop());
                     }
+
                     copied.push(passed);
                 }
                 count--;
             }
             FugureControl.add(passed);
 
-
-           /* Stack<FigureAbstract> selectedFigures = figureControle.getUndoHistory();
-            for (figure : selectedFigures){
-                if ((figure.getX1()<= firstX)&&(figure.getY1()<= firstY)&&(figure.getX2()>= firstX)&&(figure.getY2()>= firstY)){
-                    FigureAbstract passed = figure;
-
-            }
-            }*/
         }
         else {
             ShapeFactory shapeFactory = new ShapeFactory();
@@ -190,6 +183,16 @@ public class Controller {
     void UndoSelected(){
         figureControle.undoLast();
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+    }
+
+    @FXML
+    void Save(){
+
+    }
+
+    @FXML
+    void Upload(){
+
     }
 
 }
