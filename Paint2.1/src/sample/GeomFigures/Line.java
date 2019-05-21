@@ -3,9 +3,6 @@ package sample.GeomFigures;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sample.FigureAbstract;
-import sample.interfaces.IMoveable;
-import sample.interfaces.IResizeable;
-import sample.interfaces.ISelectable;
 
 public class Line extends FigureAbstract  {
 

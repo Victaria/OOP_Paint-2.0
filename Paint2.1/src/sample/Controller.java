@@ -149,10 +149,10 @@ public class Controller {
         double dY = newY - firstY;
 
         if (btnMove.isSelected()){
-            passed.moveFigure(event.getX(), event.getY());
+            passed.moveFigure(dX, dY);
             FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
-        }
-        FugureControl.resize(dX, dY);
+        } else
+        { FugureControl.resize(dX, dY);}
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         firstX = newX;
         firstY = newY;
@@ -189,7 +189,7 @@ public class Controller {
     }
 
     @FXML
-    void Upload(){
+    void Upload() throws IOException{
 
     }
 

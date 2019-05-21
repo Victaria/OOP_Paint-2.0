@@ -87,10 +87,10 @@ public abstract class FigureAbstract {
     }
 
     public void moveFigure(double newX, double newY){
-        x1 = newX - getX1() + newX;
-        x2 = newX - getX2() + newX;
-        y1 = newY - getY1() + newY;
-        y2 = newY - getY2() + newY;
+        x1 += newX;
+        x2 += newX;
+        y1 += newY;
+        y2 += newY;
     }
 
     public Boolean LineSelected(double newX, double newY){
