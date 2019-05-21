@@ -98,4 +98,9 @@ public abstract class FigureAbstract {
                 ((newY <= getY1() && newY >= getY2()) || (newY >= getY1() && newY <= getY2())) &&
                 (Math.abs(((getX1() - newX) / (getY1() - newY)) - ((getX1() - getX2()) / (getY1() - getY2()))) < 3));
     }
+
+    public Boolean FigureSelected(double newX, double newY){
+        return (((newX <= getX1() && newX >= getX2()) || (newX >= getX1() && newX <= getX2())) &&
+                ((newY <= getY1() && newY >= getY2()) || (newY >= getY1() && newY <= getY2())));
+    }
 }

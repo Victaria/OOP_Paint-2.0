@@ -96,7 +96,7 @@ public class Controller {
                 passed = copied.pop();
                 redo.push(passed);
                 figureType = passed.getFigureType();
-                if ((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY))){
+                if (((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))){
                     System.out.println(passed);
                     count = 0;
                     redo.pop();
@@ -106,21 +106,6 @@ public class Controller {
                     redo.push(passed);
                     copied.push(passed);
                 }
-
-
-             /*   if (((passed.getX1()<= firstX)&& (passed.getY1()<= firstY)&& (passed.getX2()>= firstX) && (passed.getY2()>= firstY))){
-                    count = 0;
-                    System.out.println(passed);
-                    redo.pop();
-                    while (!redo.isEmpty()){
-                        copied.push(redo.pop());
-                    }
-                    redo.push(passed);
-                    passed.setPenCol(PenCol.getValue().toString());
-                    passed.setFillCol(FillCol.getValue().toString());
-                    passed.setSliderWidth(SliderWidth.getValue());
-                    copied.push(passed);*/
-                
                 count--;
             }
             FugureControl.add(passed);
