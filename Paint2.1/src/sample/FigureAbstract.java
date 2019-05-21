@@ -1,12 +1,14 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import sample.Enums.FigureTypes;
 
 public abstract class FigureAbstract {
     private double x1;
     private double y1;
     private double x2;
     private double y2;
+    private FigureTypes figType;
 
     private String fillCol;
     private String penCol;
@@ -71,8 +73,29 @@ public abstract class FigureAbstract {
         return  y2 - y1;
     }
 
+    public void setFigureType(FigureTypes figureType){
+        figType = figureType;
+    }
+
+    public FigureTypes getFigureType(){
+        return figType;
+    }
+
     public void resize(double dX, double dY){
         x2 += dX;
         y2 += dY;
+    }
+
+    public void moveFigure(double newX, double newY){
+        x1 = newX - getX1() + newX;
+        x2 = newX - getX2() + newX;
+        y1 = newY - getY1() + newY;
+        y2 = newY - getY2() + newY;
+    }
+
+    public Boolean LineSelected(double newX, double newY){
+        return (((newX <= getX1() && newX >= getX2()) || (newX >= getX1() && newX <= getX2())) &&
+                ((newY <= getY1() && newY >= getY2()) || (newY >= getY1() && newY <= getY2())) &&
+                (Math.abs(((getX1() - newX) / (getY1() - newY)) - ((getX1() - getX2()) / (getY1() - getY2()))) < 3));
     }
 }

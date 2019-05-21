@@ -10,7 +10,11 @@ import javafx.scene.paint.Color;
 import sample.Enums.FigureState;
 import sample.Enums.FigureTypes;
 import sample.Factory.ShapeFactory;
+import sample.GeomFigures.Line;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Stack;
 
 
@@ -57,6 +61,9 @@ public class Controller {
     private Slider SliderWidth;
 
     @FXML
+    private ToggleButton btnMove;
+
+    @FXML
     private Button btnSave;
 
     @FXML
@@ -75,44 +82,54 @@ public class Controller {
 
     @FXML
      void CanvOnPressed(MouseEvent event){
+        FigureTypes figureType;
         firstX =  event.getX();
         firstY =  event.getY();
 
-        if (btnNone.isSelected()) {
+        if (btnNone.isSelected()|| btnMove.isSelected()) {
             state = FigureState.SelectFigure;
             int count = figureControle.getUndoCount();
             Stack<FigureAbstract> redo = new Stack<FigureAbstract>();
-
             Stack<FigureAbstract> copied = figureControle.copyStack();
+
             while (count > 0){
                 passed = copied.pop();
                 redo.push(passed);
+                figureType = passed.getFigureType();
+                if ((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY))){
+                    System.out.println(passed);
+                    count = 0;
+                    redo.pop();
+                    while (!redo.isEmpty()){
+                        copied.push(redo.pop());
+                    }
+                    redo.push(passed);
+                    copied.push(passed);
+                }
 
-                if ((passed.getX1()<= firstX)&& (passed.getY1()<= firstY)&& (passed.getX2()>= firstX) && (passed.getY2()>= firstY)){
-                    //ф-я для изменений
-                    passed.setPenCol(PenCol.getValue().toString());
-                    passed.setFillCol(FillCol.getValue().toString());
-                    passed.setSliderWidth(SliderWidth.getValue());
 
+             /*   if (((passed.getX1()<= firstX)&& (passed.getY1()<= firstY)&& (passed.getX2()>= firstX) && (passed.getY2()>= firstY))){
                     count = 0;
                     System.out.println(passed);
                     redo.pop();
                     while (!redo.isEmpty()){
                         copied.push(redo.pop());
                     }
-
-                    copied.push(passed);
-                }
+                    redo.push(passed);
+                    passed.setPenCol(PenCol.getValue().toString());
+                    passed.setFillCol(FillCol.getValue().toString());
+                    passed.setSliderWidth(SliderWidth.getValue());
+                    copied.push(passed);*/
+                
                 count--;
             }
             FugureControl.add(passed);
-
         }
         else {
             ShapeFactory shapeFactory = new ShapeFactory();
             
             state = FigureState.DrawFigure;
-            FigureTypes figureType = FigureTypes.Line;
+            figureType = FigureTypes.Line;
 
             if (btnLine.isSelected()){
                 figureType = FigureTypes.Line;
@@ -129,6 +146,7 @@ public class Controller {
             }
 
             FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
+            figure.setFigureType(figureType);
             figure.setFillCol(FillCol.getValue().toString());
             figure.setPenCol(PenCol.getValue().toString());
             figure.setSliderWidth(SliderWidth.getValue());
@@ -145,16 +163,11 @@ public class Controller {
         double dX = newX - firstX;
         double dY = newY - firstY;
 
-        if (btnNone.isSelected()){
-            if (state == FigureState.SelectFigure){
-                FugureControl.resize(dX, dY);
-            }
+        if (btnMove.isSelected()){
+            passed.moveFigure(event.getX(), event.getY());
+            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         }
-        else {
-
-            FugureControl.resize(dX, dY);
-        }
-
+        FugureControl.resize(dX, dY);
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         firstX = newX;
         firstY = newY;
@@ -186,7 +199,7 @@ public class Controller {
     }
 
     @FXML
-    void Save(){
+    void Save() throws IOException {
 
     }
 
