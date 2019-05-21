@@ -7,14 +7,16 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import sample.Enums.FigureState;
 import sample.Enums.FigureTypes;
 import sample.Factory.ShapeFactory;
 import sample.GeomFigures.Line;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Stack;
 
 
@@ -98,17 +100,20 @@ public class Controller {
                 figureType = passed.getFigureType();
                 if (((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))){
                     System.out.println(passed);
+                    FugureControl.add(passed);
                     count = 0;
                     redo.pop();
                     while (!redo.isEmpty()){
                         copied.push(redo.pop());
                     }
-                    redo.push(passed);
+                    copied.push(passed);
+                    passed.setPenCol(PenCol.getValue().toString());
+                    passed.setFillCol(FillCol.getValue().toString());
+                    passed.setSliderWidth(SliderWidth.getValue());
                     copied.push(passed);
                 }
                 count--;
             }
-            FugureControl.add(passed);
         }
         else {
             ShapeFactory shapeFactory = new ShapeFactory();
@@ -151,6 +156,7 @@ public class Controller {
         if (btnMove.isSelected()){
             passed.moveFigure(dX, dY);
             FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+            FugureControl.add(passed);
         } else
         { FugureControl.resize(dX, dY);}
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
@@ -185,7 +191,44 @@ public class Controller {
 
     @FXML
     void Save() throws IOException {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Save");
+        File selectedDirectory = directoryChooser.showDialog(null);
+        if (selectedDirectory != null) {
+            String directorypath = selectedDirectory.getPath();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+            Date date = new Date();
+            String currentDate = dateFormat.format(date);
+            String format = currentDate+".xml";
+            String path = directorypath+"/"+format;
 
+            File newfile = new File(path);
+            try {
+                if (newfile.createNewFile()) {
+                    FugureControl.getUndoHistory();
+                }
+               // try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+                   // bw.write(wrapedShapes);
+               // }
+                //catch (IOException e) {
+               // e.printStackTrace();
+               // }
+            } catch (IOException e) {
+                alert(new RuntimeException("Invalid path"));
+            } catch (Exception e) {
+                alert(new Exception(e));
+        }
+        }
+    }
+
+    @FXML
+    private void alert(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Error:");
+        alert.setContentText(e.getMessage());
+
+        alert.showAndWait();
     }
 
     @FXML
