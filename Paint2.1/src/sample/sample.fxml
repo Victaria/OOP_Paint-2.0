@@ -22,11 +22,11 @@
                 <ColorPicker fx:id="PenCol" editable="true" layoutX="27.0" layoutY="37.0" prefHeight="31.0" prefWidth="127.0" />
                 <AnchorPane layoutX="29.0" layoutY="215.0" prefHeight="686.0" prefWidth="149.0">
                     <children>
-                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" selected="true" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0" />
-                        <ToggleButton fx:id="btnTriang" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Triangle" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="51.0">
+                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" selected="true" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
                      <toggleGroup>
                                 <ToggleGroup fx:id="buttons" />
                      </toggleGroup></ToggleButton>
+                        <ToggleButton fx:id="btnTriang" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Triangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="51.0" />
                         <ToggleButton fx:id="btnCircle" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Circle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="92.0" />
                         <ToggleButton fx:id="btnRect" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
                         <ToggleButton fx:id="btnEllipse" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />

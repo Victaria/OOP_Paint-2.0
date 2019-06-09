@@ -2,44 +2,59 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class FugureControl {
     private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
     private Stack<FigureAbstract> redoHistory = new Stack<FigureAbstract>();
+    private static Stack<FigureAbstract> mainStack = new Stack<FigureAbstract>();
+    private FigureAbstract changeFor;
 
 
     public static void redraw(GraphicsContext context, double w, double h)
     {
         context.clearRect(0, 0, w, h);
-        for (FigureAbstract figure : undoHistory) {
+        for (FigureAbstract figure : mainStack) {
             figure.draw(context);
         }
     }
 
-    public static void add(FigureAbstract figure)
+    public Object copy()
     {
-        undoHistory.push(figure);
+        Object[] arr = mainStack.toArray();
+        return arr;
     }
 
     public static void resize(double dX, double dY)
     {
-        FigureAbstract figure = undoHistory.get(undoHistory.size() - 1);
+        FigureAbstract figure = mainStack.get(mainStack.size() - 1);
+        //FigureAbstract figure = undoHistory.get(undoHistory.size() - 1);
         figure.resize(dX, dY);
     }
 
-    public void undoLast()
-    {
-        if (!undoHistory.isEmpty()) {
-            redoHistory.push(undoHistory.pop());
+    //если фигура изменялась, то из главного в редо, а из ундо в мэин
+    public void undoLast() {
+        if (!mainStack.isEmpty()) {
+            changeFor = mainStack.pop();
+            if (changeFor.getIsChanged()) {
+                 //redoHistory.push(changeFor);
+                 if (!undoHistory.isEmpty())
+                 mainStack.push(undoHistory.pop());
+                // if (!undoHistory.isEmpty()) {
+                //    return redoHistory.push(undoHistory.pop());
+            }
+                redoHistory.push(changeFor);
         }
+
     }
 
     public void redoLast(){
         if (!redoHistory.isEmpty()){
-            undoHistory.push(redoHistory.pop());
+            if (changeFor.getIsChanged()) {
+                if (!mainStack.isEmpty())
+                 undoHistory.push(mainStack.pop());
+            }
+            mainStack.push(redoHistory.pop());
         }
     }
 
@@ -49,17 +64,64 @@ public class FugureControl {
         }
     }
 
-    public static Stack<FigureAbstract> getUndoHistory() {
-        return undoHistory;
+    public static Stack<FigureAbstract> getHistory() {
+        return mainStack;
     }
 
     public int getUndoCount(){
-        return undoHistory.size();
+        return mainStack.size();
     }
 
-    public Stack<FigureAbstract> copyStack(){
-        Stack<FigureAbstract>copied = (Stack<FigureAbstract>) undoHistory.clone();
-        return copied;
+    public FigureAbstract popUndoHistory(){
+        return undoHistory.pop();
+    }
+
+    public FigureAbstract popRedoHistory(){
+        return redoHistory.pop();
+    }
+
+    public FigureAbstract popMainStack(){
+        return mainStack.pop();
+    }
+
+    public static Boolean UndoHistoryIsEmpty() {
+        return undoHistory.isEmpty();
+    }
+
+    public Boolean RedoHistoryIsEmpty() {
+        return redoHistory.isEmpty();
+    }
+
+    public static Boolean MainStackIsEmpty() {
+        return mainStack.isEmpty();
+    }
+
+    public void pushUndoHistory(FigureAbstract figure){
+        undoHistory.push(figure);
+    }
+
+    public void pushRedoHistory(FigureAbstract figure){
+        redoHistory.push(figure);
+    }
+
+    public void pushMainStack(FigureAbstract figure){
+        mainStack.push(figure);
+    }
+
+    public void printst(){
+        Stack<FigureAbstract>s1 = (Stack<FigureAbstract>) mainStack.clone();
+        while (!s1.isEmpty()){
+            System.out.println(s1.pop());
+        }
+    }
+
+    /*
+
+    public void pushRedo(FigureAbstract figure){
+        redoHistory.push(figure);
+    }
+    public void popRedo(){
+        redoHistory.pop();
     }
 
     public void changeUndoStack(Stack<FigureAbstract>copied){
@@ -69,5 +131,5 @@ public class FugureControl {
         while (!copied.isEmpty()){
             undoHistory.push(copied.pop());
         }
-    }
+    }*/
 }

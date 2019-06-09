@@ -9,6 +9,7 @@ public abstract class FigureAbstract {
     private double x2;
     private double y2;
     private FigureTypes figType;
+    private Boolean isChanged;
 
     private String fillCol;
     private String penCol;
@@ -21,9 +22,23 @@ public abstract class FigureAbstract {
         this.y2 = y2;
         penCol = "#000000";
         fillCol = "#ffffff";
+        isChanged = false;
     }
 
     public abstract void draw(GraphicsContext context);
+
+    public Boolean setIsChanged(FigureAbstract figure){
+        figure.isChanged = true;
+        return isChanged;
+    }
+
+    public void setIsCreated(FigureAbstract figure){
+        figure.isChanged = false;
+    }
+
+    public Boolean getIsChanged(){
+        return isChanged;
+    }
 
     public String getFillCol() {
         return fillCol;
