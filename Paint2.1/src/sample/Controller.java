@@ -1,5 +1,7 @@
 package sample;
 
+
+import com.sun.xml.internal.ws.transport.http.ResourceLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
@@ -8,9 +10,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import javafx.stage.FileChooser;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import sample.Enums.FigureState;
 import sample.Enums.FigureTypes;
 import sample.Factory.ShapeFactory;
@@ -228,6 +231,7 @@ public class Controller {
     void Save() throws IOException, ParserConfigurationException {
         Stack<FigureAbstract> copied = figureControle.copyStack();
         Element e;
+
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Save Directory");
         File selectedDirectory = directoryChooser.showDialog(null);
@@ -243,7 +247,7 @@ public class Controller {
             File newfile = new File(path);
 
                 if (newfile.createNewFile()) {
-                    int i = 1;
+                   // int i = 1;
 
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder;
@@ -255,7 +259,7 @@ public class Controller {
 
                     while (!copied.isEmpty()) {
                         figure = copied.pop();
-                        e = doc.createElement("figure" + i);
+                        e = doc.createElement("figure");
 
                         Element figType = doc.createElement("type");
                         figType.appendChild(doc.createTextNode(figure.getFigureType().toString()));
@@ -290,7 +294,7 @@ public class Controller {
                         e.appendChild(width);
 
                         rootEle.appendChild(e);
-                        i++;
+                       // i++;
                     }
 
                     doc.appendChild(rootEle);
@@ -327,8 +331,55 @@ public class Controller {
     }
 
     @FXML
-    void Upload() throws IOException{
+    void Upload() throws IOException, ParserConfigurationException, SAXException {
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+
+            try {
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setIgnoringComments(true);
+                factory.setIgnoringElementContentWhitespace(true);
+                factory.setValidating(false);
+                DocumentBuilder builder = factory.newDocumentBuilder();
+
+                FileInputStream fis = new FileInputStream(file);
+                InputSource is = new InputSource(fis);
+                Document doc = builder.parse(is);
+
+         /*   DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+                doc.getDocumentElement().normalize();*/
+
+            NodeList figureNodes = doc.getElementsByTagName("figure");
+
+            for (int i =0;i<figureNodes.getLength();i++){
+                Node figureNode = figureNodes.item(i);
+
+                if(figureNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element figureElement = (Element) figureNode;
+                    String figType = figureElement.getElementsByTagName("type").item(0).getTextContent();
+                    String x1 = figureElement.getElementsByTagName("x1").item(0).getTextContent();
+                    String y1 = figureElement.getElementsByTagName("y1").item(0).getTextContent();
+                    String x2 = figureElement.getElementsByTagName("x2").item(0).getTextContent();
+                    String y2 = figureElement.getElementsByTagName("y2").item(0).getTextContent();
+                    String fill = figureElement.getElementsByTagName("fill").item(0).getTextContent();
+                    String pen = figureElement.getElementsByTagName("pen").item(0).getTextContent();
+                    String width = figureElement.getElementsByTagName("width").item(0).getTextContent();
+                    System.out.println(figType + x1 + y1 + x2 + y2 + fill + pen + width);
+                }
+            }
+        } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

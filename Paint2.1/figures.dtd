@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT figures (figure)>
+<!ELEMENT figure (type,x1,y1,x2,y2,fill,pen,width)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT x1 (#PCDATA)>
+<!ELEMENT y1 (#PCDATA)>
+<!ELEMENT x2 (#PCDATA)>
+<!ELEMENT y2 (#PCDATA)>
+<!ELEMENT fill (#PCDATA)>
+<!ELEMENT pen (#PCDATA)>
+<!ELEMENT width (#PCDATA)>
