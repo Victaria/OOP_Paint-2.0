@@ -19,11 +19,6 @@ public class FugureControl {
         }
     }
 
-    public Object copy()
-    {
-        Object[] arr = mainStack.toArray();
-        return arr;
-    }
 
     public static void resize(double dX, double dY)
     {
@@ -108,11 +103,8 @@ public class FugureControl {
         mainStack.push(figure);
     }
 
-    public void printst(){
-        Stack<FigureAbstract>s1 = (Stack<FigureAbstract>) mainStack.clone();
-        while (!s1.isEmpty()){
-            System.out.println(s1.pop());
-        }
+    public Stack<FigureAbstract> copyStack(){
+        return (Stack<FigureAbstract>) mainStack.clone();
     }
 
     /*

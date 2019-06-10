@@ -226,6 +226,7 @@ public class Controller {
 
     @FXML
     void Save() throws IOException, ParserConfigurationException {
+        Stack<FigureAbstract> copied = figureControle.copyStack();
         Element e;
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Save Directory");
@@ -242,7 +243,7 @@ public class Controller {
             File newfile = new File(path);
 
                 if (newfile.createNewFile()) {
-                    figure = figureControle.popMainStack();
+                    int i = 1;
 
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder;
@@ -251,41 +252,47 @@ public class Controller {
                     Document doc = builder.newDocument();
                     Element rootEle = doc.createElement("figures");
 
-                    e = doc.createElement("figure");
 
-                    Element figType =doc.createElement("type");
-                    figType.appendChild(doc.createTextNode(figure.getFigureType().toString()));
-                    e.appendChild(figType);
+                    while (!copied.isEmpty()) {
+                        figure = copied.pop();
+                        e = doc.createElement("figure" + i);
 
-                    Element x1=doc.createElement("x1");
-                    x1.appendChild(doc.createTextNode(String.valueOf(figure.getX1())));
-                    e.appendChild(x1);
+                        Element figType = doc.createElement("type");
+                        figType.appendChild(doc.createTextNode(figure.getFigureType().toString()));
+                        e.appendChild(figType);
 
-                    Element y1=doc.createElement("y1");
-                    y1.appendChild(doc.createTextNode(String.valueOf(figure.getY1())));
-                    e.appendChild(y1);
+                        Element x1 = doc.createElement("x1");
+                        x1.appendChild(doc.createTextNode(String.valueOf(figure.getX1())));
+                        e.appendChild(x1);
 
-                    Element x2=doc.createElement("x2");
-                    x2.appendChild(doc.createTextNode(String.valueOf(figure.getX2())));
-                    e.appendChild(x2);
+                        Element y1 = doc.createElement("y1");
+                        y1.appendChild(doc.createTextNode(String.valueOf(figure.getY1())));
+                        e.appendChild(y1);
 
-                    Element y2=doc.createElement("y2");
-                    y2.appendChild(doc.createTextNode(String.valueOf(figure.getY2())));
-                    e.appendChild(y2);
+                        Element x2 = doc.createElement("x2");
+                        x2.appendChild(doc.createTextNode(String.valueOf(figure.getX2())));
+                        e.appendChild(x2);
 
-                    Element fill=doc.createElement("fill");
-                    fill.appendChild(doc.createTextNode(figure.getFillCol()));
-                    e.appendChild(fill);
+                        Element y2 = doc.createElement("y2");
+                        y2.appendChild(doc.createTextNode(String.valueOf(figure.getY2())));
+                        e.appendChild(y2);
 
-                    Element pen=doc.createElement("pen");
-                    pen.appendChild(doc.createTextNode(figure.getPenCol()));
-                    e.appendChild(pen);
+                        Element fill = doc.createElement("fill");
+                        fill.appendChild(doc.createTextNode(figure.getFillCol()));
+                        e.appendChild(fill);
 
-                    Element width=doc.createElement("width");
-                    width.appendChild(doc.createTextNode(String.valueOf(figure.getWidth())));
-                    e.appendChild(width);
+                        Element pen = doc.createElement("pen");
+                        pen.appendChild(doc.createTextNode(figure.getPenCol()));
+                        e.appendChild(pen);
 
-                    rootEle.appendChild(e);
+                        Element width = doc.createElement("width");
+                        width.appendChild(doc.createTextNode(String.valueOf(figure.getWidth())));
+                        e.appendChild(width);
+
+                        rootEle.appendChild(e);
+                        i++;
+                    }
+
                     doc.appendChild(rootEle);
 
                     try {
@@ -306,59 +313,7 @@ public class Controller {
                         System.out.println(ioe.getMessage());
                     }
                 }
-              //  }catch (Exception e) {
-              //  alert(new Exception(e));}
-           // } catch (Exception e){alert(new Exception(e));}
-
-
-            //////////////////////////////////////////////////////////////////////////
-        //    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-          //  DocumentBuilder builder;
-
-       /* String xml = "new";
-       figureControle.printst();
-        /////////////////////////////
-        Document dom;
-        Element e = null;
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            dom = db.newDocument();
-
-            Element rootEle = dom.createElement("roles");
-
-            e = dom.createElement("role1");
-            e.appendChild(dom.createTextNode(role1));
-            rootEle.appendChild(e);
-
-            e = dom.createElement("role2");
-            e.appendChild(dom.createTextNode(role2));
-            rootEle.appendChild(e);
-
-            e = dom.createElement("role3");
-            e.appendChild(dom.createTextNode(role3));
-            rootEle.appendChild(e);
-
-            e = dom.createElement("role4");
-            e.appendChild(dom.createTextNode(role4));
-            rootEle.appendChild(e);
-
-            dom.appendChild(rootEle);
-
-            try{
-                Transformer tr = TransformerFactory.newInstance().newTransformer();
-                tr.setOutputProperty(OutputKeys.INDENT, "yes");
-                tr.setOutputProperty(OutputKeys.METHOD, "xml");
-                tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-                tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.dtd");
-                tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-                tr.transform(new DOMSource(dom),
-                        new StreamResult(new FileOutputStream(xml)));
-            } catch (TransformerException te){ System.out.println(te.getMessage());}
-        } catch (IOException ioe){System.out.println(ioe.getMessage());}
-        catch (ParserConfigurationException pce){System.out.println("UsersXML: Error trying to instantiate DocumentBuilder " + pce);}
-*/}
+              }
     }
 
     @FXML
