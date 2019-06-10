@@ -93,11 +93,7 @@ public class Controller {
     private ToggleButton btnNone;
 
     @FXML
-    private String role1 = null;
-    private String role2 = null;
-    private String role3 = null;
-    private String role4 = null;
-    private ArrayList<String> rolev;
+    private FigureTypes figureType;
 
     @FXML
      void initialize(){
@@ -109,7 +105,7 @@ public class Controller {
 
     @FXML
      void CanvOnPressed(MouseEvent event){
-        FigureTypes figureType;
+
         firstX =  event.getX();
         firstY =  event.getY();
         FigureAbstract cop;
@@ -117,9 +113,6 @@ public class Controller {
         if (btnNone.isSelected()|| btnMove.isSelected()) {
             state = FigureState.SelectFigure;
             int count = figureControle.getUndoCount();
-          //  Stack<FigureAbstract> redo = figureControle.getRedoHistory();
-          //  Stack<FigureAbstract> undo = FugureControl.getUndoHistory();
-          //  Stack<FigureAbstract> main = FugureControl.getMainStack();
 
             while (count > 0){
                 passed = figureControle.popMainStack(); //take an element
@@ -150,7 +143,7 @@ public class Controller {
             }
         }
         else {
-            ShapeFactory shapeFactory = new ShapeFactory();
+           ShapeFactory shapeFactory = new ShapeFactory();
             
             state = FigureState.DrawFigure;
             figureType = FigureTypes.Line;
@@ -180,6 +173,21 @@ public class Controller {
 
            // FugureControl.add(figure);
         }
+
+    }
+
+    @FXML
+    public void addFigure(){
+       /* ShapeFactory shapeFactory = new ShapeFactory();
+
+        FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
+        figure.setFigureType(figureType);
+        figure.setFillCol(FillCol.getValue().toString());
+        figure.setPenCol(PenCol.getValue().toString());
+        figure.setSliderWidth(SliderWidth.getValue());
+        figure.setIsCreated(figure);
+
+        figureControle.pushMainStack(figure);*/
 
     }
 
@@ -290,7 +298,7 @@ public class Controller {
                         e.appendChild(pen);
 
                         Element width = doc.createElement("width");
-                        width.appendChild(doc.createTextNode(String.valueOf(figure.getWidth())));
+                        width.appendChild(doc.createTextNode(String.valueOf(figure.getSliderWidth())));
                         e.appendChild(width);
 
                         rootEle.appendChild(e);
@@ -320,15 +328,6 @@ public class Controller {
               }
     }
 
-    @FXML
-    private void alert(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Error:");
-        alert.setContentText(e.getMessage());
-
-        alert.showAndWait();
-    }
 
     @FXML
     void Upload() throws IOException, ParserConfigurationException, SAXException {
@@ -354,10 +353,6 @@ public class Controller {
                 InputSource is = new InputSource(fis);
                 Document doc = builder.parse(is);
 
-         /*   DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(file);
-                doc.getDocumentElement().normalize();*/
-
             NodeList figureNodes = doc.getElementsByTagName("figure");
 
             for (int i =0;i<figureNodes.getLength();i++){
@@ -374,6 +369,50 @@ public class Controller {
                     String pen = figureElement.getElementsByTagName("pen").item(0).getTextContent();
                     String width = figureElement.getElementsByTagName("width").item(0).getTextContent();
                     System.out.println(figType + x1 + y1 + x2 + y2 + fill + pen + width);
+
+                    switch (figType) {
+                        case ("Line"):
+                            figureType = FigureTypes.Line;
+                            break;
+                        case ("Circle"):
+                            figureType = FigureTypes.Circle;
+                            break;
+                        case ("Ellipse"):
+                            figureType = FigureTypes.Ellipse;
+                            break;
+                        case ("Rectangle"):
+                            figureType = FigureTypes.Rectangle;
+                            break;
+                        case ("Square"):
+                            figureType = FigureTypes.Square;
+                            break;
+                        case ("Triangle"):
+                            figureType = FigureTypes.Triangle;
+                            break;
+                        default:
+                            figureType = FigureTypes.Line;
+                            break;
+                    }
+                    ShapeFactory shapeFactory = new ShapeFactory();
+
+                    FigureAbstract figure = shapeFactory.create(figureType, Double.valueOf(x1), Double.valueOf(y1));
+                    figure.setFigureType(figureType);
+                    figure.setFillCol(fill);
+                    figure.setPenCol(pen);
+                    figure.setSliderWidth(Double.valueOf(width));
+                    figure.setIsCreated(figure);
+                    figureControle.pushMainStack(figure);
+
+                    double dX = Double.valueOf(x2) - Double.valueOf(x1);
+                    double dY = Double.valueOf(y2) - Double.valueOf(y1);
+
+                    FugureControl.resize(dX, dY);
+                    FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+                   // Integer.valueOf(x1) = Integer.valueOf(x2);
+                   // firstY = newY;
+                    figureControle.clearRedo();
+
+
                 }
             }
         } catch (Exception e) {

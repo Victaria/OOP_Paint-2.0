@@ -7,5 +7,4 @@ public enum FigureTypes {
     Ellipse,
     Circle,
     Square,
-    Selection,
 }
