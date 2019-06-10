@@ -226,7 +226,7 @@ public class Controller {
 
     @FXML
     void Save() throws IOException, ParserConfigurationException {
-        Element e = null;
+        Element e;
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Save Directory");
         File selectedDirectory = directoryChooser.showDialog(null);
@@ -240,27 +240,54 @@ public class Controller {
             String path = directorypath+"/"+format;
 
             File newfile = new File(path);
-           // try {
+
                 if (newfile.createNewFile()) {
+                    figure = figureControle.popMainStack();
+
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder;
-                  //  try{
-                        builder = factory.newDocumentBuilder();
-                        Document doc = builder.newDocument();
-                        Element rootEle = doc.createElement("figures");
 
-                        e = doc.createElement("figure");
-                       /* e.appendChild(doc.createTextNode("type="+figure.getFigureType().toString()));
-                        e.appendChild(doc.createTextNode("x1="+figure.getX1()));
-                        e.appendChild(doc.createTextNode("y1="+figure.getY1()));
-                        e.appendChild(doc.createTextNode("x2="+figure.getX2()));
-                        e.appendChild(doc.createTextNode("y2="+figure.getY2()));
-                        e.appendChild(doc.createTextNode("Fill="+figure.getFillCol()));
-                        e.appendChild(doc.createTextNode("Pen="+figure.getPenCol()));
-                        e.appendChild(doc.createTextNode("Width="+figure.getWidth()));*/
+                    builder = factory.newDocumentBuilder();
+                    Document doc = builder.newDocument();
+                    Element rootEle = doc.createElement("figures");
 
-                        rootEle.appendChild(e);
-                        doc.appendChild(rootEle);
+                    e = doc.createElement("figure");
+
+                    Element figType =doc.createElement("type");
+                    figType.appendChild(doc.createTextNode(figure.getFigureType().toString()));
+                    e.appendChild(figType);
+
+                    Element x1=doc.createElement("x1");
+                    x1.appendChild(doc.createTextNode(String.valueOf(figure.getX1())));
+                    e.appendChild(x1);
+
+                    Element y1=doc.createElement("y1");
+                    y1.appendChild(doc.createTextNode(String.valueOf(figure.getY1())));
+                    e.appendChild(y1);
+
+                    Element x2=doc.createElement("x2");
+                    x2.appendChild(doc.createTextNode(String.valueOf(figure.getX2())));
+                    e.appendChild(x2);
+
+                    Element y2=doc.createElement("y2");
+                    y2.appendChild(doc.createTextNode(String.valueOf(figure.getY2())));
+                    e.appendChild(y2);
+
+                    Element fill=doc.createElement("fill");
+                    fill.appendChild(doc.createTextNode(figure.getFillCol()));
+                    e.appendChild(fill);
+
+                    Element pen=doc.createElement("pen");
+                    pen.appendChild(doc.createTextNode(figure.getPenCol()));
+                    e.appendChild(pen);
+
+                    Element width=doc.createElement("width");
+                    width.appendChild(doc.createTextNode(String.valueOf(figure.getWidth())));
+                    e.appendChild(width);
+
+                    rootEle.appendChild(e);
+                    doc.appendChild(rootEle);
+
                     try {
                         Transformer tr = TransformerFactory.newInstance().newTransformer();
                         tr.setOutputProperty(OutputKeys.INDENT, "yes");
