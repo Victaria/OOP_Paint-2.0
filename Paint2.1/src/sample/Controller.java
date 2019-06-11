@@ -177,21 +177,6 @@ public class Controller {
     }
 
     @FXML
-    public void addFigure(){
-       /* ShapeFactory shapeFactory = new ShapeFactory();
-
-        FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
-        figure.setFigureType(figureType);
-        figure.setFillCol(FillCol.getValue().toString());
-        figure.setPenCol(PenCol.getValue().toString());
-        figure.setSliderWidth(SliderWidth.getValue());
-        figure.setIsCreated(figure);
-
-        figureControle.pushMainStack(figure);*/
-
-    }
-
-    @FXML
      void CanvOnDragged(MouseEvent event){
         double newX = event.getX();
         double newY = event.getY();

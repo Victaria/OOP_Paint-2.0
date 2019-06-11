@@ -1,12 +1,12 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import sample.Singletons.RedoStack;
+import sample.Singletons.UndoStack;
 
 import java.util.Stack;
 
 public class FugureControl {
-    private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
-    private Stack<FigureAbstract> redoHistory = new Stack<FigureAbstract>();
     private static Stack<FigureAbstract> mainStack = new Stack<FigureAbstract>();
     private FigureAbstract changeFor;
 
@@ -23,7 +23,6 @@ public class FugureControl {
     public static void resize(double dX, double dY)
     {
         FigureAbstract figure = mainStack.get(mainStack.size() - 1);
-        //FigureAbstract figure = undoHistory.get(undoHistory.size() - 1);
         figure.resize(dX, dY);
     }
 
@@ -32,30 +31,27 @@ public class FugureControl {
         if (!mainStack.isEmpty()) {
             changeFor = mainStack.pop();
             if (changeFor.getIsChanged()) {
-                 //redoHistory.push(changeFor);
-                 if (!undoHistory.isEmpty())
-                 mainStack.push(undoHistory.pop());
-                // if (!undoHistory.isEmpty()) {
-                //    return redoHistory.push(undoHistory.pop());
+                if (!UndoStack.getInstance().isEmpty())
+                    mainStack.push(UndoStack.getInstance().pop());
             }
-                redoHistory.push(changeFor);
+            RedoStack.getInstance().push(changeFor);
         }
 
     }
 
     public void redoLast(){
-        if (!redoHistory.isEmpty()){
+        if (!RedoStack.getInstance().isEmpty()){
             if (changeFor.getIsChanged()) {
                 if (!mainStack.isEmpty())
-                 undoHistory.push(mainStack.pop());
+                    UndoStack.getInstance().push(mainStack.pop());
             }
-            mainStack.push(redoHistory.pop());
+            mainStack.push(RedoStack.getInstance().pop());
         }
     }
 
     public void clearRedo(){
-        while (!redoHistory.isEmpty()){
-            redoHistory.pop();
+        while (!RedoStack.getInstance().isEmpty()){
+            RedoStack.getInstance().pop();
         }
     }
 
@@ -67,24 +63,20 @@ public class FugureControl {
         return mainStack.size();
     }
 
-    public FigureAbstract popUndoHistory(){
-        return undoHistory.pop();
-    }
 
     public FigureAbstract popRedoHistory(){
-        return redoHistory.pop();
+        return RedoStack.getInstance().pop();
+       // return redoHistory.pop();
     }
 
     public FigureAbstract popMainStack(){
         return mainStack.pop();
     }
 
-    public static Boolean UndoHistoryIsEmpty() {
-        return undoHistory.isEmpty();
-    }
 
     public Boolean RedoHistoryIsEmpty() {
-        return redoHistory.isEmpty();
+        return RedoStack.getInstance().isEmpty();
+      //  return redoHistory.isEmpty();
     }
 
     public static Boolean MainStackIsEmpty() {
@@ -92,11 +84,11 @@ public class FugureControl {
     }
 
     public void pushUndoHistory(FigureAbstract figure){
-        undoHistory.push(figure);
+        UndoStack.getInstance().push(figure);
     }
 
     public void pushRedoHistory(FigureAbstract figure){
-        redoHistory.push(figure);
+        RedoStack.getInstance().push(figure);
     }
 
     public void pushMainStack(FigureAbstract figure){
@@ -107,21 +99,4 @@ public class FugureControl {
         return (Stack<FigureAbstract>) mainStack.clone();
     }
 
-    /*
-
-    public void pushRedo(FigureAbstract figure){
-        redoHistory.push(figure);
-    }
-    public void popRedo(){
-        redoHistory.pop();
-    }
-
-    public void changeUndoStack(Stack<FigureAbstract>copied){
-        while (!undoHistory.isEmpty()){
-            undoHistory.pop();
-        }
-        while (!copied.isEmpty()){
-            undoHistory.push(copied.pop());
-        }
-    }*/
 }

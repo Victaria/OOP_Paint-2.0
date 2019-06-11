@@ -1,30 +1,15 @@
 package sample.Singletons;
 
-import javafx.scene.canvas.GraphicsContext;
 import sample.FigureAbstract;
 
 import java.util.Stack;
 
 public class UndoStack {
-    private static UndoStack undoStack = null;
-    private static Stack <FigureAbstract> undoHistory;
+    private static Stack<FigureAbstract> undoHistory = new Stack<FigureAbstract>();
 
-    private UndoStack(){
-        undoHistory = new Stack<FigureAbstract>();
-    }
+    private UndoStack(){}
 
-    public void add(FigureAbstract figure){
-        getUndoHistory().push(figure);
-    }
-
-    public static Stack<FigureAbstract> getUndoHistory() {
+    public static Stack<FigureAbstract> getInstance(){
         return undoHistory;
-    }
-
-    public static UndoStack getInstance(){
-        if (undoStack == null){
-            undoStack = new UndoStack();
-        }
-        return undoStack;
     }
 }
