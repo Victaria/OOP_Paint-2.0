@@ -1,44 +1,39 @@
 package sample;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.LocatorEx;
 import javafx.scene.canvas.GraphicsContext;
 import sample.Enums.FigureTypes;
 
-public abstract class FigureAbstract {
+public abstract class FigureAbstract implements LocatorEx {
     private double x1;
     private double y1;
     private double x2;
     private double y2;
     private FigureTypes figType;
-    private Boolean isChanged;
 
     private String fillCol;
     private String penCol;
     private double slidWidth;
+    private Boolean isChanged;
 
     public FigureAbstract(double x1, double y1, double x2, double y2){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        penCol = "#000000";
-        fillCol = "#ffffff";
+        penCol = Config.getInstance().getPenCol();
+        fillCol = Config.getInstance().getFillCol();
         isChanged = false;
     }
 
+    protected FigureAbstract() {
+    }
+
+    public void setIsChanged(Boolean changed){ this.isChanged = changed;}
+
+    public Boolean getIsChanged(){return isChanged;}
+
     public abstract void draw(GraphicsContext context);
-
-    public Boolean setIsChanged(FigureAbstract figure){
-        figure.isChanged = true;
-        return isChanged;
-    }
-
-    public void setIsCreated(FigureAbstract figure){
-        figure.isChanged = false;
-    }
-
-    public Boolean getIsChanged(){
-        return isChanged;
-    }
 
     public String getFillCol() {
         return fillCol;
@@ -118,4 +113,21 @@ public abstract class FigureAbstract {
         return (((newX <= getX1() && newX >= getX2()) || (newX >= getX1() && newX <= getX2())) &&
                 ((newY <= getY1() && newY >= getY2()) || (newY >= getY1() && newY <= getY2())));
     }
+
+    public ShapeSnapshot makeSnapshot() {
+        return new ShapeSnapshot(this);
+    }
+
+    public FigureAbstract fromSnapshot(ShapeSnapshot snapshot) {
+        this.x1 = snapshot.getX1();
+        this.y1 = snapshot.getY1();
+        this.figType = snapshot.getType();
+        this.x2 = snapshot.getX2();
+        this.y2 = snapshot.getY2();
+        this.fillCol = snapshot.getFill();
+        this.penCol = snapshot.getPen();
+        this.slidWidth = snapshot.getPenWidth();
+        return this;
+    }
 }
+

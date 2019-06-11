@@ -1,19 +1,19 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
-import sample.Singletons.RedoStack;
-import sample.Singletons.UndoStack;
 
 import java.util.Stack;
 
 public class FugureControl {
+    private static Stack<ShapeSnapshot> undoHistory = new Stack<ShapeSnapshot>();
     private static Stack<FigureAbstract> mainStack = new Stack<FigureAbstract>();
+    private static Stack<ShapeSnapshot> redoHistory = new Stack<ShapeSnapshot>();
     private FigureAbstract changeFor;
 
 
     public static void redraw(GraphicsContext context, double w, double h)
     {
-        context.clearRect(0, 0, w, h);
+        context.clearRect(0, 0, Config.getInstance().getMinWidth(), Config.getInstance().getMinHeight());
         for (FigureAbstract figure : mainStack) {
             figure.draw(context);
         }
@@ -31,27 +31,74 @@ public class FugureControl {
         if (!mainStack.isEmpty()) {
             changeFor = mainStack.pop();
             if (changeFor.getIsChanged()) {
-                if (!UndoStack.getInstance().isEmpty())
-                    mainStack.push(UndoStack.getInstance().pop());
+                if (!undoHistory.isEmpty()){
+                    ShapeSnapshot snap = undoHistory.pop();
+                    FigureAbstract shape = snap.getFigshape();
+                    shape.fromSnapshot(snap);
+                    if (!mainStack.contains(shape)) mainStack.push(shape);}
+                }
+                   // mainStack.push(undoHistory.pop());
+            redoHistory.push(changeFor.makeSnapshot());
             }
-            RedoStack.getInstance().push(changeFor);
+
         }
 
-    }
+          /*  if (!mainStack.isEmpty()) {
+                changeFor = mainStack.pop();
+                if (changeFor.getIsChanged()) {
+                    undoHistory.push(changeFor.makeSnapshot());
+                } else mainStack.push(changeFor);
+                if (!redoHistory.isEmpty()){
+                ShapeSnapshot snap = redoHistory.pop();
+                FigureAbstract shape = snap.getFigshape();
+                shape.fromSnapshot(snap);
+                if (!mainStack.contains(shape)) mainStack.push(shape);}
+            } else if (!redoHistory.isEmpty()){
+                ShapeSnapshot snap = redoHistory.pop();
+                FigureAbstract shape = snap.getFigshape();
+                shape.fromSnapshot(snap);
+                if (!mainStack.contains(shape)) mainStack.push(shape);
+            }*/
 
-    public void redoLast(){
-        if (!RedoStack.getInstance().isEmpty()){
+
+
+
+    public void redoLast() {
+        if (!redoHistory.isEmpty()){
             if (changeFor.getIsChanged()) {
                 if (!mainStack.isEmpty())
-                    UndoStack.getInstance().push(mainStack.pop());
+                    undoHistory.push(mainStack.pop().makeSnapshot());
             }
-            mainStack.push(RedoStack.getInstance().pop());
+            ShapeSnapshot snap = redoHistory.pop();
+            FigureAbstract shape = snap.getFigshape();
+            shape.fromSnapshot(snap);
+            if (!mainStack.contains(shape)) mainStack.push(shape);
         }
+      /*  FigureAbstract changeFor;
+            if (!undoHistory.isEmpty()) {
+                if (!mainStack.isEmpty()) {
+                    changeFor = mainStack.pop();
+
+                    if (changeFor.getIsChanged()) {
+                        redoHistory.push(changeFor.makeSnapshot());
+                    } else mainStack.push(changeFor);
+                        ShapeSnapshot snap = undoHistory.pop();
+                        FigureAbstract shape = snap.getFigshape();
+                        shape.fromSnapshot(snap);
+                        if (!mainStack.contains(shape)) mainStack.push(shape);
+                } else {
+                    ShapeSnapshot snap = undoHistory.pop();
+                    FigureAbstract shape = snap.getFigshape();
+                    shape.fromSnapshot(snap);
+                    if (!mainStack.contains(shape)) mainStack.push(shape);
+                }
+    }*/
     }
 
+
     public void clearRedo(){
-        while (!RedoStack.getInstance().isEmpty()){
-            RedoStack.getInstance().pop();
+        while (!redoHistory.isEmpty()){
+            redoHistory.pop();
         }
     }
 
@@ -64,8 +111,8 @@ public class FugureControl {
     }
 
 
-    public FigureAbstract popRedoHistory(){
-        return RedoStack.getInstance().pop();
+    public ShapeSnapshot popRedoHistory(){
+        return redoHistory.pop();
        // return redoHistory.pop();
     }
 
@@ -75,24 +122,24 @@ public class FugureControl {
 
 
     public Boolean RedoHistoryIsEmpty() {
-        return RedoStack.getInstance().isEmpty();
+        return redoHistory.isEmpty();
       //  return redoHistory.isEmpty();
     }
 
-    public static Boolean MainStackIsEmpty() {
-        return mainStack.isEmpty();
-    }
 
-    public void pushUndoHistory(FigureAbstract figure){
-        UndoStack.getInstance().push(figure);
+
+    public void pushUndoHistory(ShapeSnapshot figure){
+        undoHistory.push(figure);
     }
 
     public void pushRedoHistory(FigureAbstract figure){
-        RedoStack.getInstance().push(figure);
+       redoHistory.push(figure.makeSnapshot());
     }
 
-    public void pushMainStack(FigureAbstract figure){
-        mainStack.push(figure);
+    public void pushMainStack(ShapeSnapshot snap){
+        FigureAbstract shape = snap.getFigshape();
+        shape.fromSnapshot(snap);
+        if(!mainStack.contains(shape)) mainStack.push(shape);
     }
 
     public Stack<FigureAbstract> copyStack(){

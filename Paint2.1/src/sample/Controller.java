@@ -116,22 +116,23 @@ public class Controller {
 
             while (count > 0){
                 passed = figureControle.popMainStack(); //take an element
-               // passed = figureControle.undoLast();
                 figureControle.pushRedoHistory(passed); //add to Redo Stack
                 figureType = passed.getFigureType();
                 if (((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))){
                     System.out.println(passed);
-                    figureControle.pushUndoHistory(passed);
+                    passed.setIsChanged(true);
+
+                    figureControle.pushUndoHistory(passed.makeSnapshot());
                     count = -1;
                     figureControle.popRedoHistory();
                     while (!figureControle.RedoHistoryIsEmpty()){
                         figureControle.pushMainStack(figureControle.popRedoHistory());
                     }
-                    passed.setIsChanged(passed);
+                    passed.setIsChanged(true);
                     passed.setPenCol(PenCol.getValue().toString());
                     passed.setFillCol(FillCol.getValue().toString());
                     passed.setSliderWidth(SliderWidth.getValue());
-                    figureControle.pushMainStack(passed);
+                    figureControle.pushMainStack(passed.makeSnapshot());
                   //  main.push(passed);
                 }
                 if (count == 1)
@@ -167,9 +168,8 @@ public class Controller {
             figure.setFillCol(FillCol.getValue().toString());
             figure.setPenCol(PenCol.getValue().toString());
             figure.setSliderWidth(SliderWidth.getValue());
-            figure.setIsCreated(figure);
 
-            figureControle.pushMainStack(figure);
+            figureControle.pushMainStack(figure.makeSnapshot());
 
            // FugureControl.add(figure);
         }
@@ -385,8 +385,7 @@ public class Controller {
                     figure.setFillCol(fill);
                     figure.setPenCol(pen);
                     figure.setSliderWidth(Double.valueOf(width));
-                    figure.setIsCreated(figure);
-                    figureControle.pushMainStack(figure);
+                    figureControle.pushMainStack(figure.makeSnapshot());
 
                     double dX = Double.valueOf(x2) - Double.valueOf(x1);
                     double dY = Double.valueOf(y2) - Double.valueOf(y1);

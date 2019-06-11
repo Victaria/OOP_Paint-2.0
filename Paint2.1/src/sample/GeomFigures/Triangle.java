@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sample.FigureAbstract;
 
+import javax.xml.bind.ValidationEventLocator;
+
 public class Triangle extends FigureAbstract {
 
     public Triangle(double x1, double y1, double x2, double y2) {
@@ -23,5 +25,30 @@ public class Triangle extends FigureAbstract {
 
         context.fillPolygon(xpoint, ypoint, xpoint.length);
         context.strokePolygon(xpoint, ypoint, xpoint.length);
+    }
+
+    @Override
+    public ValidationEventLocator getLocation() {
+        return null;
+    }
+
+    @Override
+    public String getPublicId() {
+        return null;
+    }
+
+    @Override
+    public String getSystemId() {
+        return null;
+    }
+
+    @Override
+    public int getLineNumber() {
+        return 0;
+    }
+
+    @Override
+    public int getColumnNumber() {
+        return 0;
     }
 }
