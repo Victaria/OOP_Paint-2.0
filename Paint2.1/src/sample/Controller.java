@@ -163,7 +163,7 @@ public class Controller {
                 figureType = FigureTypes.Triangle;
             }
 
-            FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
+            FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, firstX, firstY);
             figure.setFigureType(figureType);
             figure.setFillCol(FillCol.getValue().toString());
             figure.setPenCol(PenCol.getValue().toString());
@@ -380,7 +380,7 @@ public class Controller {
                     }
                     ShapeFactory shapeFactory = new ShapeFactory();
 
-                    FigureAbstract figure = shapeFactory.create(figureType, Double.valueOf(x1), Double.valueOf(y1));
+                    FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, Double.valueOf(x1), Double.valueOf(y1));
                     figure.setFigureType(figureType);
                     figure.setFillCol(fill);
                     figure.setPenCol(pen);

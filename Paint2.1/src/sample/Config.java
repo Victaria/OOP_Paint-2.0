@@ -11,6 +11,7 @@ public class Config {
 
     private String fillCol;
 
+    private String libsPath;
 
     public String  getPenCol() {
         return penCol;
@@ -28,6 +29,10 @@ public class Config {
         return fillCol;
     }
 
+    public String getLibsPath() {
+        return libsPath;
+    }
+
     public static synchronized Config getInstance() {
         if (instance == null) {
             instance = new Config();
@@ -41,5 +46,6 @@ public class Config {
         minHeight = 900;
         minWidth = 1200;
         fillCol = "#ffffff";
+        libsPath = "D:/!Disk_D/BSUIR/OOTISP/Paint2.1/Paint2.1/out/production/Paint2.1/sample/libs";
     }
 }

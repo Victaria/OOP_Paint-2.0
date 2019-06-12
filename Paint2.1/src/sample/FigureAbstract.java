@@ -23,7 +23,7 @@ public abstract class FigureAbstract implements LocatorEx {
         this.y2 = y2;
         penCol = Config.getInstance().getPenCol();
         fillCol = Config.getInstance().getFillCol();
-        isChanged = false;
+        this.isChanged = false;
     }
 
     protected FigureAbstract() {

@@ -22,7 +22,7 @@ public class FugureControl {
 
     public static void resize(double dX, double dY)
     {
-        FigureAbstract figure = mainStack.get(mainStack.size() - 1);
+        FigureAbstract figure = mainStack.get(mainStack.size()-1);
         figure.resize(dX, dY);
     }
 
