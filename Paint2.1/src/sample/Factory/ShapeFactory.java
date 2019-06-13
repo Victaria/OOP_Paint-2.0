@@ -32,8 +32,6 @@ public class ShapeFactory {
         List<Class<FigureAbstract>> figures = new ArrayList<>();
         File folder = new File(Paths.get(config.getLibsPath()).toString());
         File[] listOfFiles = folder.listFiles();
-        System.out.println(folder);
-        System.out.println(listOfFiles);
 
         if(listOfFiles == null) return figures;
 
@@ -56,10 +54,8 @@ public class ShapeFactory {
                         // -6 because of .class
                         String className = je.getName().substring(0, je.getName().length() - 6);
                         className = className.replace('/', '.');
-                        System.out.println(className);
 
                         Class cls = cl.loadClass(className);
-                        System.out.println(className);
 
                         if (FigureAbstract.class.isAssignableFrom(cls)) {
                             figures.add((Class<FigureAbstract>) cls);
@@ -77,12 +73,10 @@ public class ShapeFactory {
     public FigureAbstract create(String name, FigureTypes figureType, double X, double Y) {
 
         for (Class<FigureAbstract> figureClass : figuresClasses) {
-            System.out.println(figureClass.getName() + " " + name);
             if (figureClass.getName().endsWith(name)) {
                 try {
                     Constructor constructor = figureClass.getConstructor(double.class, double.class, double.class, double.class);
                     FigureAbstract figure = (FigureAbstract) constructor.newInstance(X,Y,X,Y);
-                    System.out.println(figure);
                     return figure;
                 } catch (Exception e) {
                     return null;

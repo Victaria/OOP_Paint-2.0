@@ -39,30 +39,10 @@ public class FugureControl {
                     shape.fromSnapshot(snap);
                     if (!mainStack.contains(shape)) mainStack.push(shape);}
                 }
-                   // mainStack.push(undoHistory.pop());
             redoHistory.push(changeFor.makeSnapshot());
             }
 
         }
-
-          /*  if (!mainStack.isEmpty()) {
-                changeFor = mainStack.pop();
-                if (changeFor.getIsChanged()) {
-                    undoHistory.push(changeFor.makeSnapshot());
-                } else mainStack.push(changeFor);
-                if (!redoHistory.isEmpty()){
-                ShapeSnapshot snap = redoHistory.pop();
-                FigureAbstract shape = snap.getFigshape();
-                shape.fromSnapshot(snap);
-                if (!mainStack.contains(shape)) mainStack.push(shape);}
-            } else if (!redoHistory.isEmpty()){
-                ShapeSnapshot snap = redoHistory.pop();
-                FigureAbstract shape = snap.getFigshape();
-                shape.fromSnapshot(snap);
-                if (!mainStack.contains(shape)) mainStack.push(shape);
-            }*/
-
-
 
 
     public void redoLast() {
@@ -76,25 +56,6 @@ public class FugureControl {
             shape.fromSnapshot(snap);
             if (!mainStack.contains(shape)) mainStack.push(shape);
         }
-      /*  FigureAbstract changeFor;
-            if (!undoHistory.isEmpty()) {
-                if (!mainStack.isEmpty()) {
-                    changeFor = mainStack.pop();
-
-                    if (changeFor.getIsChanged()) {
-                        redoHistory.push(changeFor.makeSnapshot());
-                    } else mainStack.push(changeFor);
-                        ShapeSnapshot snap = undoHistory.pop();
-                        FigureAbstract shape = snap.getFigshape();
-                        shape.fromSnapshot(snap);
-                        if (!mainStack.contains(shape)) mainStack.push(shape);
-                } else {
-                    ShapeSnapshot snap = undoHistory.pop();
-                    FigureAbstract shape = snap.getFigshape();
-                    shape.fromSnapshot(snap);
-                    if (!mainStack.contains(shape)) mainStack.push(shape);
-                }
-    }*/
     }
 
 
@@ -115,7 +76,6 @@ public class FugureControl {
 
     public ShapeSnapshot popRedoHistory(){
         return redoHistory.pop();
-       // return redoHistory.pop();
     }
 
     public FigureAbstract popMainStack(){
@@ -125,7 +85,6 @@ public class FugureControl {
 
     public Boolean RedoHistoryIsEmpty() {
         return redoHistory.isEmpty();
-      //  return redoHistory.isEmpty();
     }
 
 

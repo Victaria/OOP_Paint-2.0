@@ -94,7 +94,6 @@ public class Controller {
 
     @FXML
     private FigureTypes figureType;
-    private Boolean isBegin;
 
     @FXML
      void initialize(){
@@ -115,7 +114,6 @@ public class Controller {
         List<Class<FigureAbstract>> spf  = ShapeFactory.getActualFigures();
 
         for (Class i : spf){
-            System.out.println("++"+i.getName());
             if(i.getName().equals("sample.GeomFigures.Circle")){
                 btnCircle.setDisable(false);
             } else if (i.getName().equals("sample.GeomFigures.Ellipse")){
@@ -139,7 +137,6 @@ public class Controller {
 
         firstX =  event.getX();
         firstY =  event.getY();
-        FigureAbstract cop;
 
         if ((btnNone.isSelected()|| btnMove.isSelected()) && !FugureControl.getHistory().isEmpty()) {
             state = FigureState.SelectFigure;
@@ -150,7 +147,7 @@ public class Controller {
                 figureControle.pushRedoHistory(passed); //add to Redo Stack
                 figureType = passed.getFigureType();
                 if (((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))){
-                    System.out.println(passed);
+
                     passed.setIsChanged(true);
 
                     figureControle.pushUndoHistory(passed.makeSnapshot());
@@ -164,7 +161,6 @@ public class Controller {
                     passed.setFillCol(FillCol.getValue().toString());
                     passed.setSliderWidth(SliderWidth.getValue());
                     figureControle.pushMainStack(passed.makeSnapshot());
-                  //  main.push(passed);
                 }
                 if (count == 1)
                     while (!figureControle.RedoHistoryIsEmpty()){
@@ -211,7 +207,6 @@ public class Controller {
                 btnNone.setDisable(false);
             }
 
-           // FugureControl.add(figure);
         }
 
     }
@@ -225,9 +220,6 @@ public class Controller {
 
         if (btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && passed != null){
             passed.moveFigure(dX, dY);
-          //  FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
-           // figureControle.pushMainStack(passed);
-           // FugureControl.add(passed);
         } else if (!btnMove.isSelected() || (!btnNone.isSelected() && passed != null))
         { FugureControl.resize(dX, dY);}
         FugureControl.redraw(myCanvas.getGraphicsContext2D());
@@ -431,12 +423,35 @@ public class Controller {
                             figureType = FigureTypes.Triangle;
                             break;
                         default:
-                            figureType = FigureTypes.Line;
+                            figureType = FigureTypes.None;
                             break;
                     }
+
+                    List<Class<FigureAbstract>> spf  = ShapeFactory.getActualFigures();
+
+                    int k = 0;
+                    for (Class p : spf){
+                        if(p.getName().equals("sample.GeomFigures.Circle") && (figureType == FigureTypes.Circle)){
+                            k = 1;
+                        } else if (p.getName().equals("sample.GeomFigures.Ellipse")&& (figureType == FigureTypes.Ellipse)){
+                            k = 1;
+                        } else if (p.getName().equals("sample.GeomFigures.Line")&& (figureType == FigureTypes.Line)){
+                            k = 1;
+                        } else if (p.getName().equals("sample.GeomFigures.Rectangle")&& (figureType == FigureTypes.Rectangle)){
+                            k = 1;
+                        } else if (p.getName().equals("sample.GeomFigures.Square")&& (figureType == FigureTypes.Square)){
+                            k = 1;
+                        } else if (p.getName().equals("sample.GeomFigures.Triangle")&& (figureType == FigureTypes.Triangle)){
+                            k = 1;
+                        }
+                    }
+
+                    if (figureType != FigureTypes.None && (k == 1)){
                     ShapeFactory shapeFactory = new ShapeFactory();
 
                     FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, Double.valueOf(x1), Double.valueOf(y1));
+
+
                     figure.setFigureType(figureType);
                     figure.setFillCol(fill);
                     figure.setPenCol(pen);
@@ -448,9 +463,7 @@ public class Controller {
 
                     FugureControl.resize(dX, dY);
                     FugureControl.redraw(myCanvas.getGraphicsContext2D());
-                   // Integer.valueOf(x1) = Integer.valueOf(x2);
-                   // firstY = newY;
-                    figureControle.clearRedo();
+                    figureControle.clearRedo();}
 
 
                 }
