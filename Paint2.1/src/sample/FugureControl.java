@@ -12,7 +12,7 @@ public class FugureControl {
     private FigureAbstract changeFor;
 
 
-    public static void redraw(GraphicsContext context, double w, double h)
+    public static void redraw(GraphicsContext context)
     {
         context.clearRect(0, 0, Config.getInstance().getMinWidth(), Config.getInstance().getMinHeight());
         for (FigureAbstract figure : mainStack) {

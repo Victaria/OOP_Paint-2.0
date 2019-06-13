@@ -230,7 +230,7 @@ public class Controller {
            // FugureControl.add(passed);
         } else if (!btnMove.isSelected() || (!btnNone.isSelected() && passed != null))
         { FugureControl.resize(dX, dY);}
-        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        FugureControl.redraw(myCanvas.getGraphicsContext2D());
         firstX = newX;
         firstY = newY;
         figureControle.clearRedo();
@@ -240,18 +240,18 @@ public class Controller {
     void CanvOnKeyPressed(KeyEvent event){
         if (undo.match(event)) {
            figureControle.undoLast();
-           FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+           FugureControl.redraw(myCanvas.getGraphicsContext2D());
         }
         if (redo.match(event)){
             figureControle.redoLast();
-            FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+            FugureControl.redraw(myCanvas.getGraphicsContext2D());
         }
     }
 
     @FXML
     void RedoSelected(){
         figureControle.redoLast();
-        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        FugureControl.redraw(myCanvas.getGraphicsContext2D());
         if (!FugureControl.getHistory().isEmpty())
         {
             btnMove.setDisable(false);
@@ -265,7 +265,7 @@ public class Controller {
     @FXML
     void UndoSelected(){
         figureControle.undoLast();
-        FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        FugureControl.redraw(myCanvas.getGraphicsContext2D());
         if (!FugureControl.getHistory().isEmpty())
         {
             btnMove.setDisable(false);
@@ -447,7 +447,7 @@ public class Controller {
                     double dY = Double.valueOf(y2) - Double.valueOf(y1);
 
                     FugureControl.resize(dX, dY);
-                    FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+                    FugureControl.redraw(myCanvas.getGraphicsContext2D());
                    // Integer.valueOf(x1) = Integer.valueOf(x2);
                    // firstY = newY;
                     figureControle.clearRedo();
