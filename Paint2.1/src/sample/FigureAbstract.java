@@ -4,6 +4,8 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.LocatorEx;
 import javafx.scene.canvas.GraphicsContext;
 import sample.Enums.FigureTypes;
 
+import java.util.ArrayList;
+
 public abstract class FigureAbstract implements LocatorEx {
     private double x1;
     private double y1;
@@ -25,6 +27,7 @@ public abstract class FigureAbstract implements LocatorEx {
         fillCol = Config.getInstance().getFillCol();
         this.isChanged = false;
     }
+
 
     protected FigureAbstract() {
     }

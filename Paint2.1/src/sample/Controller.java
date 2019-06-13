@@ -51,7 +51,7 @@ public class Controller {
     private FigureAbstract passed;
 
     @FXML
-    private ToggleButton btnLine;
+    public ToggleButton btnLine;
 
     @FXML
     private ToggleButton btnTriang;
@@ -94,6 +94,7 @@ public class Controller {
 
     @FXML
     private FigureTypes figureType;
+    private Boolean isBegin;
 
     @FXML
      void initialize(){
@@ -101,7 +102,37 @@ public class Controller {
         FillCol.setValue(Color.WHITE);
         graphicsContext = myCanvas.getGraphicsContext2D();
         graphicsContext.setLineWidth(3);
+
+        btnCircle.setDisable(true);
+        btnEllipse.setDisable(true);
+        btnLine.setDisable(true);
+        btnRect.setDisable(true);
+        btnSquare.setDisable(true);
+        btnTriang.setDisable(true);
+        btnNone.setDisable(true);
+        btnMove.setDisable(true);
+
+        List<Class<FigureAbstract>> spf  = ShapeFactory.getActualFigures();
+
+        for (Class i : spf){
+            System.out.println("++"+i.getName());
+            if(i.getName().equals("sample.GeomFigures.Circle")){
+                btnCircle.setDisable(false);
+            } else if (i.getName().equals("sample.GeomFigures.Ellipse")){
+                btnEllipse.setDisable(false);
+            } else if (i.getName().equals("sample.GeomFigures.Line")){
+                btnLine.setDisable(false);
+            } else if (i.getName().equals("sample.GeomFigures.Rectangle")){
+                btnRect.setDisable(false);
+            } else if (i.getName().equals("sample.GeomFigures.Square")){
+                btnSquare.setDisable(false);
+            } else if (i.getName().equals("sample.GeomFigures.Triangle")){
+                btnTriang.setDisable(false);
+            }
+        }
     }
+
+
 
     @FXML
      void CanvOnPressed(MouseEvent event){
@@ -110,7 +141,7 @@ public class Controller {
         firstY =  event.getY();
         FigureAbstract cop;
 
-        if (btnNone.isSelected()|| btnMove.isSelected()) {
+        if ((btnNone.isSelected()|| btnMove.isSelected()) && !FugureControl.getHistory().isEmpty()) {
             state = FigureState.SelectFigure;
             int count = figureControle.getUndoCount();
 
@@ -141,13 +172,16 @@ public class Controller {
                     }
                 else
                     count--;
-            }
+            } if (count == 0) { while (!figureControle.RedoHistoryIsEmpty()){
+                figureControle.pushMainStack(figureControle.popRedoHistory());
+                passed = null;
+            }}
         }
-        else {
+        else if (btnTriang.isSelected() || btnSquare.isSelected() || btnRect.isSelected() || btnLine.isSelected()|| btnEllipse.isSelected() || btnCircle.isSelected()){
            ShapeFactory shapeFactory = new ShapeFactory();
             
             state = FigureState.DrawFigure;
-            figureType = FigureTypes.Line;
+            figureType = null;
 
             if (btnLine.isSelected()){
                 figureType = FigureTypes.Line;
@@ -161,7 +195,7 @@ public class Controller {
                 figureType = FigureTypes.Square;
             } else if (btnTriang.isSelected()){
                 figureType = FigureTypes.Triangle;
-            }
+            } else figureType = null;
 
             FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, firstX, firstY);
             figure.setFigureType(figureType);
@@ -170,6 +204,12 @@ public class Controller {
             figure.setSliderWidth(SliderWidth.getValue());
 
             figureControle.pushMainStack(figure.makeSnapshot());
+
+            if (!FugureControl.getHistory().isEmpty())
+            {
+                btnMove.setDisable(false);
+                btnNone.setDisable(false);
+            }
 
            // FugureControl.add(figure);
         }
@@ -183,12 +223,12 @@ public class Controller {
         double dX = newX - firstX;
         double dY = newY - firstY;
 
-        if (btnMove.isSelected()){
+        if (btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && passed != null){
             passed.moveFigure(dX, dY);
           //  FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
            // figureControle.pushMainStack(passed);
            // FugureControl.add(passed);
-        } else
+        } else if (!btnMove.isSelected() || (!btnNone.isSelected() && passed != null))
         { FugureControl.resize(dX, dY);}
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
         firstX = newX;
@@ -212,12 +252,28 @@ public class Controller {
     void RedoSelected(){
         figureControle.redoLast();
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        if (!FugureControl.getHistory().isEmpty())
+        {
+            btnMove.setDisable(false);
+            btnNone.setDisable(false);
+        } else {
+            btnNone.setDisable(true);
+            btnMove.setDisable(true);
+        }
     }
 
     @FXML
     void UndoSelected(){
         figureControle.undoLast();
         FugureControl.redraw(myCanvas.getGraphicsContext2D(), myCanvas.getWidth(), myCanvas.getHeight());
+        if (!FugureControl.getHistory().isEmpty())
+        {
+            btnMove.setDisable(false);
+            btnNone.setDisable(false);
+        } else {
+            btnNone.setDisable(true);
+            btnMove.setDisable(true);
+        }
     }
 
     @FXML

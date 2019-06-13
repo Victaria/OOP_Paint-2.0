@@ -1,8 +1,13 @@
 package sample.Factory;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ToggleButton;
 import sample.Config;
+import sample.Controller;
 import sample.Enums.FigureTypes;
 import sample.FigureAbstract;
+import sample.FugureControl;
+import sample.GeomFigures.Line;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -18,9 +23,11 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 public class ShapeFactory {
-    private static List<Class<FigureAbstract>> figuresClasses = getActualFigures();
 
-    private static List<Class<FigureAbstract>> getActualFigures() {
+    public List<Class<FigureAbstract>> figuresClasses = getActualFigures();
+
+    public static List<Class<FigureAbstract>> getActualFigures() {
+
         Config config = Config.getInstance();
         List<Class<FigureAbstract>> figures = new ArrayList<>();
         File folder = new File(Paths.get(config.getLibsPath()).toString());
@@ -52,7 +59,7 @@ public class ShapeFactory {
                         System.out.println(className);
 
                         Class cls = cl.loadClass(className);
-                        System.out.println(cls);
+                        System.out.println(className);
 
                         if (FigureAbstract.class.isAssignableFrom(cls)) {
                             figures.add((Class<FigureAbstract>) cls);
@@ -63,11 +70,8 @@ public class ShapeFactory {
                 }
             }
         }
-
-
         return figures;
     }
-//D:\!Disk_D\BSUIR\OOTISP\Paint2.1\Paint2.1\out\production\Paint2.1\sample\GeomFigures
 
 
     public FigureAbstract create(String name, FigureTypes figureType, double X, double Y) {
@@ -88,21 +92,5 @@ public class ShapeFactory {
         return null;
 
         }
-       /* switch (figureType){
-            case Line:
-                return new Line(X, Y, X, Y);
-            case Rectangle:
-                return new Rectangle(X, Y, X, Y);
-            case Circle:
-                return new Circle(X, Y, X, Y);
-            case Square:
-                return new Square(X, Y, X, Y);
-            case Ellipse:
-                return new Ellipse(X, Y, X, Y);
-            case Triangle:
-                return new Triangle(X, Y, X, Y);
-            default:
-                throw new IllegalArgumentException("Unknown type: " + figureType);
-        }
-    }*/
+
     }

@@ -22,7 +22,7 @@
                 <ColorPicker fx:id="PenCol" editable="true" layoutX="27.0" layoutY="37.0" prefHeight="31.0" prefWidth="127.0" />
                 <AnchorPane layoutX="29.0" layoutY="215.0" prefHeight="686.0" prefWidth="149.0">
                     <children>
-                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" selected="true" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
+                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
                      <toggleGroup>
                                 <ToggleGroup fx:id="buttons" />
                      </toggleGroup></ToggleButton>

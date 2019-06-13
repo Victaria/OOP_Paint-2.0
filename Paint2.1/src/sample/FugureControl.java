@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class FugureControl {
@@ -22,8 +23,9 @@ public class FugureControl {
 
     public static void resize(double dX, double dY)
     {
+        if (!mainStack.isEmpty()){
         FigureAbstract figure = mainStack.get(mainStack.size()-1);
-        figure.resize(dX, dY);
+        figure.resize(dX, dY);}
     }
 
     //если фигура изменялась, то из главного в редо, а из ундо в мэин
