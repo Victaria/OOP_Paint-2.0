@@ -46,6 +46,6 @@ public class Config {
         minHeight = 900;
         minWidth = 1200;
         fillCol = "#ffffff";
-        libsPath = "D:/!Disk_D/BSUIR/OOTISP/Paint2.1/Paint2.1/out/production/Paint2.1/sample/libs";
+        libsPath = "D:/!Disk_D/BSUIR/OOTISP/Paint2.1/Paint2.1/out/libs";
     }
 }

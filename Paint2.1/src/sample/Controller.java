@@ -1,8 +1,6 @@
 package sample;
 
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
-import com.sun.xml.internal.ws.transport.http.ResourceLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCombination;
@@ -16,14 +14,11 @@ import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import sample.Enums.FigureState;
-import sample.Enums.FigureTypes;
 import sample.Factory.ShapeFactory;
-import sample.GeomFigures.Line;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.events.Attribute;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -33,7 +28,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
@@ -52,22 +46,37 @@ public class Controller {
     private FigureAbstract passed;
 
     @FXML
-    public ToggleButton btnLine;
+    public ToggleButton btn1;
 
     @FXML
-    private ToggleButton btnTriang;
+    private ToggleButton btn2;
 
     @FXML
-    private ToggleButton btnCircle;
+    private ToggleButton btn3;
 
     @FXML
-    private ToggleButton btnRect;
+    private ToggleButton btn4;
 
     @FXML
-    private ToggleButton btnEllipse;
+    private ToggleButton btn5;
 
     @FXML
-    private ToggleButton btnSquare;
+    private ToggleButton btn6;
+
+    @FXML
+    private ToggleButton btn7;
+
+    @FXML
+    private ToggleButton btn8;
+
+    @FXML
+    private ToggleButton btn9;
+
+    @FXML
+    private ToggleButton btn10;
+
+    @FXML
+    private ToggleButton btn11;
 
     @FXML
     private Canvas myCanvas;
@@ -94,7 +103,7 @@ public class Controller {
     private ToggleButton btnNone;
 
     @FXML
-    private FigureTypes figureType;
+    private String figureType;
 
     @FXML
      void initialize(){
@@ -103,33 +112,68 @@ public class Controller {
         graphicsContext = myCanvas.getGraphicsContext2D();
         graphicsContext.setLineWidth(3);
 
-        btnCircle.setDisable(true);
-        btnEllipse.setDisable(true);
-        btnLine.setDisable(true);
-        btnRect.setDisable(true);
-        btnSquare.setDisable(true);
-        btnTriang.setDisable(true);
+        btn1.setDisable(true);
+        btn2.setDisable(true);
+        btn3.setDisable(true);
+        btn4.setDisable(true);
+        btn5.setDisable(true);
+        btn6.setDisable(true);
+        btn7.setDisable(true);
+        btn8.setDisable(true);
+        btn9.setDisable(true);
+        btn10.setDisable(true);
+        btn11.setDisable(true);
         btnNone.setDisable(true);
         btnMove.setDisable(true);
 
         List<Class<FigureAbstract>> spf  = ShapeFactory.getActualFigures();
+        String name;
+
+        int m = 1;
 
         for (Class i : spf){
-            if(i.getName().equals("sample.GeomFigures.Circle")){
-                btnCircle.setDisable(false);
-            } else if (i.getName().equals("sample.GeomFigures.Ellipse")){
-                btnEllipse.setDisable(false);
-            } else if (i.getName().equals("sample.GeomFigures.Line")){
-                btnLine.setDisable(false);
-            } else if (i.getName().equals("sample.GeomFigures.Rectangle")){
-                btnRect.setDisable(false);
-            } else if (i.getName().equals("sample.GeomFigures.Square")){
-                btnSquare.setDisable(false);
-            } else if (i.getName().equals("sample.GeomFigures.Triangle")){
-                btnTriang.setDisable(false);
+            name = i.toString().substring(25);
+            System.out.println(name);
+
+            if(m==1){
+                btn1.setDisable(false);
+                btn1.setText(name);
+            } else if (m==2){
+                btn2.setDisable(false);
+                btn2.setText(name);
+            } else if (m==3){
+                btn3.setDisable(false);
+                btn3.setText(name);
+            } else if (m==4){
+                btn4.setDisable(false);
+                btn4.setText(name);
+            } else if (m==5){
+                btn5.setDisable(false);
+                btn5.setText(name);
+            } else if (m==6){
+                btn6.setDisable(false);
+                btn6.setText(name);
+            }else if (m==7){
+                btn7.setDisable(false);
+                btn7.setText(name);
+            } else if (m==8){
+                btn8.setDisable(false);
+                btn8.setText(name);
+            } else if (m==9){
+                btn9.setDisable(false);
+                btn9.setText(name);
+            } else if (m==10){
+                btn10.setDisable(false);
+                btn10.setText(name);
+            } else if (m==11){
+                btn11.setDisable(false);
+                btn11.setText(name);
             }
+
+            m++;
         }
     }
+
 
 
 
@@ -147,7 +191,7 @@ public class Controller {
                 passed = figureControle.popMainStack(); //take an element
                 figureControle.pushRedoHistory(passed); //add to Redo Stack
                 figureType = passed.getFigureType();
-                if ((((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY)))){
+                if ((((figureType == "Line") && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY)))){
 
                     passed.setIsChanged(true);
 
@@ -174,27 +218,37 @@ public class Controller {
                 passed = null;
             }}
         }
-        else if (btnTriang.isSelected() || btnSquare.isSelected() || btnRect.isSelected() || btnLine.isSelected()|| btnEllipse.isSelected() || btnCircle.isSelected()){
+        else if (btn1.isSelected() || btn2.isSelected() || btn3.isSelected() || btn4.isSelected()|| btn5.isSelected() || btn6.isSelected() || btn7.isSelected() ||btn8.isSelected() ||btn9.isSelected() ||btn10.isSelected() || btn11.isSelected() ){
            ShapeFactory shapeFactory = new ShapeFactory();
             
             state = FigureState.DrawFigure;
             figureType = null;
 
-            if (btnLine.isSelected()){
-                figureType = FigureTypes.Line;
-            } else if (btnCircle.isSelected()){
-                figureType = FigureTypes.Circle;
-            } else if (btnEllipse.isSelected()){
-                figureType = FigureTypes.Ellipse;
-            } else if (btnRect.isSelected()){
-                figureType = FigureTypes.Rectangle;
-            } else if (btnSquare.isSelected()){
-                figureType = FigureTypes.Square;
-            } else if (btnTriang.isSelected()){
-                figureType = FigureTypes.Triangle;
+            if (btn1.isSelected()){
+                figureType = btn1.getText();
+            } else if (btn2.isSelected()){
+                figureType = btn2.getText();
+            } else if (btn3.isSelected()){
+                figureType = btn3.getText();
+            } else if (btn4.isSelected()){
+                figureType = btn4.getText();
+            } else if (btn5.isSelected()){
+                figureType = btn5.getText();
+            } else if (btn6.isSelected()){
+                figureType = btn6.getText();
+            } else if (btn7.isSelected()){
+                figureType = btn7.getText();
+            } else if (btn8.isSelected()){
+                figureType = btn8.getText();
+            } else if (btn9.isSelected()){
+                figureType = btn9.getText();
+            } else if (btn10.isSelected()){
+                figureType = btn10.getText();
+            } else if (btn11.isSelected()){
+                figureType = btn11.getText();
             } else figureType = null;
 
-            FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, firstX, firstY);
+            FigureAbstract figure = shapeFactory.create(figureType, firstX, firstY);
             figure.setFigureType(figureType);
             figure.setFillCol(FillCol.getValue().toString());
             figure.setPenCol(PenCol.getValue().toString());
@@ -304,7 +358,7 @@ public class Controller {
                         e = doc.createElement("figure");
 
                         Element figType = doc.createElement("type");
-                        figType.appendChild(doc.createTextNode(figure.getFigureType().toString()));
+                        figType.appendChild(doc.createTextNode(figure.getFigureType()));
                         e.appendChild(figType);
 
                         Element x1 = doc.createElement("x1");
@@ -408,72 +462,49 @@ public class Controller {
                     System.out.println(figType + x1 + y1 + x2 + y2 + fill + pen + width);
 
 
-                    switch (figType) {
-                        case ("Line"):
-                            figureType = FigureTypes.Line;
-                            break;
-                        case ("Circle"):
-                            figureType = FigureTypes.Circle;
-                            break;
-                        case ("Ellipse"):
-                            figureType = FigureTypes.Ellipse;
-                            break;
-                        case ("Rectangle"):
-                            figureType = FigureTypes.Rectangle;
-                            break;
-                        case ("Square"):
-                            figureType = FigureTypes.Square;
-                            break;
-                        case ("Triangle"):
-                            figureType = FigureTypes.Triangle;
-                            break;
-                        default:
-                            figureType = FigureTypes.None;
-                            break;
-                    }
+                    figureType = figType;
+
 
                     List<Class<FigureAbstract>> spf  = ShapeFactory.getActualFigures();
+                String name;
 
                     int k = 0;
                     for (Class p : spf){
-                        if(p.getName().equals("sample.GeomFigures.Circle") && (figureType == FigureTypes.Circle)){
-                            k = 1;
-                        } else if (p.getName().equals("sample.GeomFigures.Ellipse")&& (figureType == FigureTypes.Ellipse)){
-                            k = 1;
-                        } else if (p.getName().equals("sample.GeomFigures.Line")&& (figureType == FigureTypes.Line)){
-                            k = 1;
-                        } else if (p.getName().equals("sample.GeomFigures.Rectangle")&& (figureType == FigureTypes.Rectangle)){
-                            k = 1;
-                        } else if (p.getName().equals("sample.GeomFigures.Square")&& (figureType == FigureTypes.Square)){
-                            k = 1;
-                        } else if (p.getName().equals("sample.GeomFigures.Triangle")&& (figureType == FigureTypes.Triangle)){
-                            k = 1;
-                        }
+                        name = p.toString().substring(25);
+
+                        if(name.equals(figureType)){k=1; }
                     }
 
+                    if (k == 1) {
+                        ShapeFactory shapeFactory = new ShapeFactory();
 
-                    if (figureType != FigureTypes.None && (k == 1)){
-                    ShapeFactory shapeFactory = new ShapeFactory();
-
-                    FigureAbstract figure = shapeFactory.create(figureType.toString(),figureType, Double.valueOf(x1), Double.valueOf(y1));
-
-
-                    figure.setFigureType(figureType);
-                    figure.setFillCol(fill);
-                    figure.setPenCol(pen);
-                    figure.setSliderWidth(Double.valueOf(width));
-                    figureControle.pushMainStack(figure.makeSnapshot());
-
-                    double dX = Double.valueOf(x2) - Double.valueOf(x1);
-                    double dY = Double.valueOf(y2) - Double.valueOf(y1);
-
-                    FugureControl.resize(dX, dY);
-                    FugureControl.redraw(myCanvas.getGraphicsContext2D());
-                    figureControle.clearRedo();}
+                        FigureAbstract figure = shapeFactory.create(figureType, Double.valueOf(x1), Double.valueOf(y1));
 
 
-                }
+                        figure.setFigureType(figureType);
+                        figure.setFillCol(fill);
+                        figure.setPenCol(pen);
+                        figure.setSliderWidth(Double.valueOf(width));
+                        figureControle.pushMainStack(figure.makeSnapshot());
+
+                        double dX = Double.valueOf(x2) - Double.valueOf(x1);
+                        double dY = Double.valueOf(y2) - Double.valueOf(y1);
+
+                        FugureControl.resize(dX, dY);
+                        FugureControl.redraw(myCanvas.getGraphicsContext2D());
+                        figureControle.clearRedo();
+                    }
+                    }
+
             }
+                    if (!FugureControl.getHistory().isEmpty())
+                    {
+                        btnMove.setDisable(false);
+                        btnNone.setDisable(false);
+                    } else {
+                        btnNone.setDisable(true);
+                        btnMove.setDisable(true);
+                    }
                 }
                 catch (Exception e){
                     System.out.println("File is invalid");

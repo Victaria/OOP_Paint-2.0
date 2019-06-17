@@ -2,16 +2,13 @@ package sample;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.LocatorEx;
 import javafx.scene.canvas.GraphicsContext;
-import sample.Enums.FigureTypes;
-
-import java.util.ArrayList;
 
 public abstract class FigureAbstract implements LocatorEx {
     private double x1;
     private double y1;
     private double x2;
     private double y2;
-    private FigureTypes figType;
+    private String figType;
 
     private String fillCol;
     private String penCol;
@@ -86,12 +83,11 @@ public abstract class FigureAbstract implements LocatorEx {
         return  y2 - y1;
     }
 
-    public void setFigureType(FigureTypes figureType){
-        figType = figureType;
+    public void setFigureType(String figureType){ this.figType = figureType;
     }
 
-    public FigureTypes getFigureType(){
-        return figType;
+    public String getFigureType(){
+        return this.figType;
     }
 
     public void resize(double dX, double dY){

@@ -1,11 +1,10 @@
 package sample;
 
-import sample.Enums.FigureTypes;
 
 import java.awt.*;
 
 public class ShapeSnapshot {
-    private FigureTypes type;
+    private String type;
     private double x1;
     private double y1;
     private double x2;
@@ -53,7 +52,7 @@ public class ShapeSnapshot {
         return y2;
     }
 
-    public FigureTypes getType() {
+    public String getType() {
         return type;
     }
 

@@ -9,11 +9,12 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane fx:id="MainPane" maxHeight="900.0" maxWidth="1200.0" minHeight="900.0" minWidth="1200.0" onKeyPressed="#CanvOnKeyPressed" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <Canvas fx:id="myCanvas" height="900.0" onMouseDragged="#CanvOnDragged" onMousePressed="#CanvOnPressed" width="1031.0" />
+        <Canvas fx:id="myCanvas" height="869.0" layoutX="-1.0" layoutY="31.0" onMouseDragged="#CanvOnDragged" onMousePressed="#CanvOnPressed" width="1032.0" />
         <Pane pickOnBounds="false" prefHeight="800.0" prefWidth="180.0" style="-fx-background-color: #4a919e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1020.0" AnchorPane.rightAnchor="1200.0" AnchorPane.topAnchor="0.0">
             <children>
             <Label layoutX="20.0" layoutY="75.0" text="Fill Color :" />
@@ -22,15 +23,15 @@
                 <ColorPicker fx:id="PenCol" editable="true" layoutX="27.0" layoutY="37.0" prefHeight="31.0" prefWidth="127.0" />
                 <AnchorPane layoutX="29.0" layoutY="215.0" prefHeight="686.0" prefWidth="149.0">
                     <children>
-                        <ToggleButton fx:id="btnLine" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
+                        <ToggleButton id="1" fx:id="btn1" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Line" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="10.0">
                      <toggleGroup>
                                 <ToggleGroup fx:id="buttons" />
                      </toggleGroup></ToggleButton>
-                        <ToggleButton fx:id="btnTriang" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Triangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="51.0" />
-                        <ToggleButton fx:id="btnCircle" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Circle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="92.0" />
-                        <ToggleButton fx:id="btnRect" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
-                        <ToggleButton fx:id="btnEllipse" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />
-                        <ToggleButton fx:id="btnSquare" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
+                        <ToggleButton id="2" fx:id="btn2" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Triangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="51.0" />
+                        <ToggleButton id="3" fx:id="btn3" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Circle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="92.0" />
+                        <ToggleButton id="4" fx:id="btn4" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Rectangle" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="133.0" />
+                        <ToggleButton id="5" fx:id="btn5" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Ellipse" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="174.0" />
+                        <ToggleButton id="6" fx:id="btn6" minHeight="31.0" minWidth="111.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="111.0" text="Square" toggleGroup="$buttons" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="215.0" />
                   <Button fx:id="btnRedo" layoutX="24.0" layoutY="432.0" mnemonicParsing="false" onMousePressed="#RedoSelected" prefHeight="31.0" prefWidth="111.0" text="Redo" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="432.0" />
                   <Button fx:id="btnUndo" layoutX="24.0" layoutY="478.0" mnemonicParsing="false" onMousePressed="#UndoSelected" prefHeight="31.0" prefWidth="111.0" text="Undo" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="478.0" />
                   <Button fx:id="btnSave" layoutX="24.0" layoutY="531.0" mnemonicParsing="false" onMouseClicked="#Save" prefHeight="31.0" prefWidth="111.0" text="Save" />
@@ -44,6 +45,31 @@
       <Separator layoutX="1031.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1031.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="lineWidth" layoutX="1041.0" layoutY="143.0" text="Width :" />
           <Slider fx:id="SliderWidth" layoutX="1041.0" layoutY="164.0" majorTickUnit="15.0" max="30.0" min="1.0" prefHeight="44.0" prefWidth="134.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+      <HBox layoutX="1.0" layoutY="-1.0" prefHeight="31.0" prefWidth="1032.0">
+         <children>
+            <ToggleButton id="7" fx:id="btn7" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="None" toggleGroup="$buttons" />
+            <ToggleButton id="8" fx:id="btn8" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="None">
+               <toggleGroup>
+                  <ToggleGroup fx:id="buttons" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton id="9" fx:id="btn9" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="None">
+               <toggleGroup>
+                  <ToggleGroup fx:id="buttons" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton id="10" fx:id="btn10" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="None">
+               <toggleGroup>
+                  <ToggleGroup fx:id="buttons" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton id="11" fx:id="btn11" mnemonicParsing="false" prefHeight="31.0" prefWidth="89.0" text="None">
+               <toggleGroup>
+                  <ToggleGroup fx:id="buttons" />
+               </toggleGroup>
+            </ToggleButton>
+         </children>
+      </HBox>
 
     </children>
 </AnchorPane>

@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
 import sample.Config;
 import sample.Controller;
-import sample.Enums.FigureTypes;
 import sample.FigureAbstract;
 import sample.FugureControl;
 import sample.GeomFigures.Line;
@@ -25,6 +24,7 @@ import java.util.stream.Collectors;
 public class ShapeFactory {
 
     public List<Class<FigureAbstract>> figuresClasses = getActualFigures();
+
 
     public static List<Class<FigureAbstract>> getActualFigures() {
 
@@ -59,6 +59,7 @@ public class ShapeFactory {
 
                         if (FigureAbstract.class.isAssignableFrom(cls)) {
                             figures.add((Class<FigureAbstract>) cls);
+                            System.out.println(cls);
                         }
                     }
                 } catch (Exception e) {
@@ -70,7 +71,7 @@ public class ShapeFactory {
     }
 
 
-    public FigureAbstract create(String name, FigureTypes figureType, double X, double Y) {
+    public FigureAbstract create(String name, double X, double Y) {
 
         for (Class<FigureAbstract> figureClass : figuresClasses) {
             if (figureClass.getName().endsWith(name)) {
