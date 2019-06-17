@@ -52,4 +52,6 @@ public class Circle extends FigureAbstract {
     public int getColumnNumber() {
         return 0;
     }
+
+
 }

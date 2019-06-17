@@ -6,7 +6,7 @@ import sample.FigureAbstract;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Ellipse extends FigureAbstract {
+public class Ellipse extends FigureAbstract  {
 
     public Ellipse(double x1, double y1, double x2, double y2)
     {
@@ -47,4 +47,7 @@ public class Ellipse extends FigureAbstract {
     public int getColumnNumber() {
         return 0;
     }
+
+
+
 }

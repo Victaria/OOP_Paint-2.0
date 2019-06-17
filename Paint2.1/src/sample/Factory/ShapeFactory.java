@@ -62,7 +62,7 @@ public class ShapeFactory {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                   // e.printStackTrace();
                 }
             }
         }

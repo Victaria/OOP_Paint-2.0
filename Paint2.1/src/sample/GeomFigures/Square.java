@@ -6,7 +6,7 @@ import sample.FigureAbstract;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Square extends FigureAbstract {
+public class Square extends FigureAbstract  {
 
     public Square(double x1, double y1, double x2, double y2)
     {
@@ -51,4 +51,5 @@ public class Square extends FigureAbstract {
     public int getColumnNumber() {
         return 0;
     }
+
 }

@@ -1,6 +1,7 @@
 package sample;
 
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 import com.sun.xml.internal.ws.transport.http.ResourceLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -146,7 +147,7 @@ public class Controller {
                 passed = figureControle.popMainStack(); //take an element
                 figureControle.pushRedoHistory(passed); //add to Redo Stack
                 figureType = passed.getFigureType();
-                if (((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))){
+                if ((((figureType == FigureTypes.Line) && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY)))){
 
                     passed.setIsChanged(true);
 
@@ -160,8 +161,8 @@ public class Controller {
                     passed.setPenCol(PenCol.getValue().toString());
                     passed.setFillCol(FillCol.getValue().toString());
                     passed.setSliderWidth(SliderWidth.getValue());
-                    figureControle.pushMainStack(passed.makeSnapshot());
-                }
+                    figureControle.pushMainStack(passed.makeSnapshot());}
+
                 if (count == 1)
                     while (!figureControle.RedoHistoryIsEmpty()){
                         figureControle.pushMainStack(figureControle.popRedoHistory());
@@ -218,7 +219,7 @@ public class Controller {
         double dX = newX - firstX;
         double dY = newY - firstY;
 
-        if (btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && passed != null){
+        if ((btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && (passed != null))){
             passed.moveFigure(dX, dY);
         } else if (!btnMove.isSelected() || (!btnNone.isSelected() && passed != null))
         { FugureControl.resize(dX, dY);}
@@ -384,15 +385,18 @@ public class Controller {
 
                 FileInputStream fis = new FileInputStream(file);
                 InputSource is = new InputSource(fis);
-                Document doc = builder.parse(is);
+                try{
+                    Document doc = builder.parse(is);
+                    NodeList figureNodes = doc.getElementsByTagName("figure");
 
-            NodeList figureNodes = doc.getElementsByTagName("figure");
 
             for (int i =0;i<figureNodes.getLength();i++){
                 Node figureNode = figureNodes.item(i);
 
                 if(figureNode.getNodeType() == Node.ELEMENT_NODE){
                     Element figureElement = (Element) figureNode;
+
+
                     String figType = figureElement.getElementsByTagName("type").item(0).getTextContent();
                     String x1 = figureElement.getElementsByTagName("x1").item(0).getTextContent();
                     String y1 = figureElement.getElementsByTagName("y1").item(0).getTextContent();
@@ -402,6 +406,7 @@ public class Controller {
                     String pen = figureElement.getElementsByTagName("pen").item(0).getTextContent();
                     String width = figureElement.getElementsByTagName("width").item(0).getTextContent();
                     System.out.println(figType + x1 + y1 + x2 + y2 + fill + pen + width);
+
 
                     switch (figType) {
                         case ("Line"):
@@ -446,6 +451,7 @@ public class Controller {
                         }
                     }
 
+
                     if (figureType != FigureTypes.None && (k == 1)){
                     ShapeFactory shapeFactory = new ShapeFactory();
 
@@ -468,6 +474,10 @@ public class Controller {
 
                 }
             }
+                }
+                catch (Exception e){
+                    System.out.println("File is invalid");
+                }
         } catch (Exception e) {
                 e.printStackTrace();
             }

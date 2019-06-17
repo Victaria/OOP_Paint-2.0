@@ -6,7 +6,7 @@ import sample.FigureAbstract;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Line extends FigureAbstract  {
+public class Line extends FigureAbstract {
 
     public Line(double x1, double y1, double x2, double y2) {
         super(x1, y1, x2, y2);
@@ -45,4 +45,5 @@ public class Line extends FigureAbstract  {
     public int getColumnNumber() {
         return 0;
     }
+
 }

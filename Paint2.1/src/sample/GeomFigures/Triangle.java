@@ -51,4 +51,5 @@ public class Triangle extends FigureAbstract {
     public int getColumnNumber() {
         return 0;
     }
+
 }

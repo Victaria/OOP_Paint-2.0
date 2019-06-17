@@ -46,4 +46,6 @@ public class Rectangle extends FigureAbstract {
     public int getColumnNumber() {
         return 0;
     }
+
+
 }
