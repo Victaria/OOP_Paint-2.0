@@ -3,10 +3,11 @@ package sample.GeomFigures;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sample.FigureAbstract;
+import sample.Interfaces.ISelectable;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Ellipse extends FigureAbstract  {
+public class Ellipse extends FigureAbstract  implements ISelectable {
 
     public Ellipse(double x1, double y1, double x2, double y2)
     {
@@ -48,6 +49,15 @@ public class Ellipse extends FigureAbstract  {
         return 0;
     }
 
+    @Override
+    public void select(GraphicsContext gc) {
+        double tempWidth = gc.getLineWidth();
+        gc.setLineWidth(6);
 
+        gc.setStroke(Color.BLUE);
+        gc.strokeOval(getX1(), getY1(), getWidth(), getHight());
+
+        gc.setLineWidth(tempWidth);
+    }
 
 }

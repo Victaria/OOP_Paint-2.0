@@ -15,6 +15,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import sample.Enums.FigureState;
 import sample.Factory.ShapeFactory;
+import sample.Interfaces.ISelectable;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -191,7 +192,7 @@ public class Controller {
                 passed = figureControle.popMainStack(); //take an element
                 figureControle.pushRedoHistory(passed); //add to Redo Stack
                 figureType = passed.getFigureType();
-                if ((((figureType == "Line") && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY)))){
+                if ((((figureType == "Line") && (passed.LineSelected(firstX, firstY)))||(passed.FigureSelected(firstX, firstY))) && passed instanceof ISelectable){
 
                     passed.setIsChanged(true);
 
@@ -201,17 +202,20 @@ public class Controller {
                     while (!figureControle.RedoHistoryIsEmpty()){
                         figureControle.pushMainStack(figureControle.popRedoHistory());
                     }
+                    ((ISelectable) passed).select(graphicsContext);
                     passed.setIsChanged(true);
                     passed.setPenCol(PenCol.getValue().toString());
                     passed.setFillCol(FillCol.getValue().toString());
                     passed.setSliderWidth(SliderWidth.getValue());
-                    figureControle.pushMainStack(passed.makeSnapshot());}
+                    figureControle.pushMainStack(passed.makeSnapshot());
+                }
 
-                if (count == 1)
+                if (count == 1){
                     while (!figureControle.RedoHistoryIsEmpty()){
                         figureControle.pushMainStack(figureControle.popRedoHistory());
                     }
-                else
+                    count = -1;
+                }else
                     count--;
             } if (count == 0) { while (!figureControle.RedoHistoryIsEmpty()){
                 figureControle.pushMainStack(figureControle.popRedoHistory());
@@ -273,10 +277,11 @@ public class Controller {
         double dX = newX - firstX;
         double dY = newY - firstY;
 
-        if ((btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && (passed != null))){
+        if ((btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && (passed != null)) && passed instanceof ISelectable){
             passed.moveFigure(dX, dY);
-        } else if (!btnMove.isSelected() || (!btnNone.isSelected() && passed != null))
-        { FugureControl.resize(dX, dY);}
+        } else if ((!btnMove.isSelected()) || (!btnNone.isSelected() && (passed instanceof ISelectable))) {
+                FugureControl.resize(dX, dY);
+        }
         FugureControl.redraw(myCanvas.getGraphicsContext2D());
         firstX = newX;
         firstY = newY;

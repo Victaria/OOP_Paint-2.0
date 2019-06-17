@@ -1,5 +1,7 @@
-package sample.interfaces;
+package sample.Interfaces;
+
+import javafx.scene.canvas.GraphicsContext;
 
 public interface ISelectable {
-    void select();
+    void select(GraphicsContext gc);
 }

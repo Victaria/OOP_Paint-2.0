@@ -3,10 +3,12 @@ package sample.GeomFigures;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sample.FigureAbstract;
+import sample.Interfaces.ISelectable;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Square extends FigureAbstract  {
+public class Square extends FigureAbstract  implements ISelectable {
+    private double min;
 
     public Square(double x1, double y1, double x2, double y2)
     {
@@ -19,7 +21,7 @@ public class Square extends FigureAbstract  {
         context.setStroke(Color.valueOf(getPenCol()));
         context.setLineWidth(getSliderWidth());
 
-        double min;
+
         double w = getWidth();
         double h = getHight();
         if (w < h){ min = w;} else min = h;
@@ -50,6 +52,17 @@ public class Square extends FigureAbstract  {
     @Override
     public int getColumnNumber() {
         return 0;
+    }
+
+    @Override
+    public void select(GraphicsContext gc) {
+        double tempWidth = gc.getLineWidth();
+        gc.setLineWidth(6);
+
+        gc.setStroke(Color.BLUE);
+        gc.strokeRect(getX1(), getY1(), min, min);
+
+        gc.setLineWidth(tempWidth);
     }
 
 }

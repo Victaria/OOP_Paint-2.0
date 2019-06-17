@@ -3,14 +3,16 @@ package sample.GeomFigures;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sample.FigureAbstract;
+import sample.Interfaces.ISelectable;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Triangle extends FigureAbstract {
+public class Triangle extends FigureAbstract implements ISelectable {
 
     public Triangle(double x1, double y1, double x2, double y2) {
         super(x1, y1, x2, y2);
     }
+
 
     @Override
     public void draw(GraphicsContext context) {
@@ -52,4 +54,18 @@ public class Triangle extends FigureAbstract {
         return 0;
     }
 
+    @Override
+    public void select(GraphicsContext gc) {
+        double tempWidth = gc.getLineWidth();
+        gc.setLineWidth(6);
+        gc.setStroke(Color.BLUE);
+
+        double x1 = getX1(), x2 = getX2(), y1 = getY1(), y2 = getY2();
+
+        double xpoint[] = new double[] {x1, (x1 + x2) / 2, x2};
+        double ypoint[] = new double[] {y2, y1, y2};
+        gc.strokePolygon(xpoint, ypoint, xpoint.length);
+
+        gc.setLineWidth(tempWidth);
+    }
 }
