@@ -95,12 +95,6 @@ public class Controller {
     private ToggleButton btnMove;
 
     @FXML
-    private Button btnSave;
-
-    @FXML
-    private Button btnOpen;
-
-    @FXML
     private ToggleButton btnNone;
 
     @FXML
@@ -170,12 +164,9 @@ public class Controller {
                 btn11.setDisable(false);
                 btn11.setText(name);
             }
-
             m++;
         }
     }
-
-
 
 
     @FXML
@@ -214,6 +205,7 @@ public class Controller {
                     while (!figureControle.RedoHistoryIsEmpty()){
                         figureControle.pushMainStack(figureControle.popRedoHistory());
                     }
+                    passed = null;
                     count = -1;
                 }else
                     count--;
@@ -277,9 +269,9 @@ public class Controller {
         double dX = newX - firstX;
         double dY = newY - firstY;
 
-        if ((btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && (passed != null)) && passed instanceof ISelectable){
+        if ((btnMove.isSelected() && !FugureControl.getHistory().isEmpty() && (passed != null)) && (passed instanceof ISelectable)){
             passed.moveFigure(dX, dY);
-        } else if ((!btnMove.isSelected()) || (!btnNone.isSelected() && (passed instanceof ISelectable))) {
+        } else if ((!btnMove.isSelected() && !btnNone.isSelected()) || ((btnNone.isSelected() && passed instanceof ISelectable))) {
                 FugureControl.resize(dX, dY);
         }
         FugureControl.redraw(myCanvas.getGraphicsContext2D());
