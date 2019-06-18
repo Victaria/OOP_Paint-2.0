@@ -7,7 +7,7 @@ import sample.Interfaces.ISelectable;
 
 import javax.xml.bind.ValidationEventLocator;
 
-public class Circle extends FigureAbstract  {
+public class Circle extends FigureAbstract implements ISelectable {
 
     public Circle(double x1, double y1, double x2, double y2)
     {
@@ -56,7 +56,7 @@ public class Circle extends FigureAbstract  {
         return 0;
     }
 
-   /* @Override
+    @Override
     public void select(GraphicsContext gc) {
         double tempWidth = gc.getLineWidth();
         gc.setLineWidth(6);
@@ -65,6 +65,6 @@ public class Circle extends FigureAbstract  {
         gc.strokeOval(getX1(), getY1(), min, min);
 
         gc.setLineWidth(tempWidth);
-    }*/
+    }
 
 }
