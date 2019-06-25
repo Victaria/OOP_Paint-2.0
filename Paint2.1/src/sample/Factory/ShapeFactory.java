@@ -1,12 +1,7 @@
 package sample.Factory;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ToggleButton;
 import sample.Config;
-import sample.Controller;
 import sample.FigureAbstract;
-import sample.FugureControl;
-import sample.GeomFigures.Line;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -16,10 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import java.util.stream.Collectors;
 
 public class ShapeFactory {
 
@@ -63,7 +56,7 @@ public class ShapeFactory {
                         }
                     }
                 } catch (Exception e) {
-                   // e.printStackTrace();
+                    return null;
                 }
             }
         }

@@ -2,7 +2,6 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class FugureControl {

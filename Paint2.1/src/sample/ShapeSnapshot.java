@@ -32,10 +32,6 @@ public class ShapeSnapshot {
         return figshape;
     }
 
-    public Boolean getIsChange(){
-        return isChange;
-    }
-
     public double getX1() {
         return x1;
     }

@@ -21,7 +21,6 @@ public class Circle extends FigureAbstract implements ISelectable {
         context.setLineWidth(getSliderWidth());
         context.setStroke(Color.valueOf(getPenCol()));
 
-       // double min;
         double w = getWidth();
         double h = getHight();
         if (w < h){

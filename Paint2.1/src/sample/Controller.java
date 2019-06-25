@@ -12,7 +12,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import sample.Enums.FigureState;
 import sample.Factory.ShapeFactory;
 import sample.Interfaces.ISelectable;
@@ -415,7 +414,7 @@ public class Controller {
 
 
     @FXML
-    void Upload() throws IOException, ParserConfigurationException, SAXException {
+    void Upload(){
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
